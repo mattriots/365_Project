@@ -2,13 +2,18 @@ package com.example._365_project;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.fxml.Initializable;
+import javafx.scene.control.*;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
-public class workoutController {
+import java.net.URL;
+import java.util.ResourceBundle;
+
+public class workoutController implements Initializable{
+
+    @FXML
+    private Button addWorkout;
 
     @FXML
     private Button login;
@@ -26,6 +31,16 @@ public class workoutController {
     private TextField username;
 
     @FXML
+    private ChoiceBox<String> workoutChoicebox;
+    private String[] workout = {"Bench", "Squat", "Deadlift"};
+
+
+    @FXML
+    void workoutChoiceHandler(MouseEvent event) {
+
+    }
+
+    @FXML
     void returnBtnHandler(ActionEvent event) {
 
     }
@@ -38,6 +53,16 @@ public class workoutController {
         double res = num1 + num2;
 
         textSum.appendText(String.valueOf(res));
+    }
+
+    @FXML
+    void submitWorkoutHandler(ActionEvent event) {
+
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        workoutChoicebox.getItems().addAll(workout);
     }
 
 }
