@@ -32,7 +32,8 @@ public class workoutController implements Initializable{
 
     @FXML
     private ChoiceBox<String> workoutChoicebox;
-    private String[] workout = {"Bench", "Squat", "Deadlift"};
+    private String[] workout = {"Bench Press", "Squat", "Deadlift", "Dumbell Curl", "Barbell Curl",
+    "Push-ups", "Pull-ups"};
 
 
     @FXML
@@ -62,6 +63,7 @@ public class workoutController implements Initializable{
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
         workoutChoicebox.getItems().addAll(workout);
     }
 
