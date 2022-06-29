@@ -9,7 +9,7 @@ import java.util.Date;
 
 public class WorkoutObject {
 
-    private String calendar;
+    private String date;
     private String workoutOption;
     private int numSets;
     private int numReps;
@@ -17,8 +17,8 @@ public class WorkoutObject {
 
 
 
-    WorkoutObject(String calendar,String workoutOption,  int numSets, int numReps, double weightAmt){
-        this.calendar = calendar;
+    WorkoutObject(String date,String workoutOption,  int numSets, int numReps, double weightAmt){
+        this.date = date;
         this.workoutOption = workoutOption;
         this.numSets = numSets;
         this.numReps = numReps;
@@ -30,8 +30,8 @@ public class WorkoutObject {
     public String getWorkoutOption() {
         return workoutOption;
     }
-    public String getCalendar() {
-        return calendar;
+    public String getDate() {
+        return date;
     }
 
     public double getNumWeight() {
@@ -48,6 +48,6 @@ public class WorkoutObject {
 
     @Override
     public String toString() {
-        return calendar + " " + workoutOption + " " + numSets + " " + numReps + " " + weightAmt;
+        return date + " " + workoutOption + " " + numSets + " " + numReps + " " + weightAmt;
     }
 }

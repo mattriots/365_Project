@@ -14,6 +14,8 @@ import java.util.ResourceBundle;
 
 public class workoutController implements Initializable{
 
+
+
     @FXML
     private ListView<WorkoutObject> workoutList;
     public static  List<WorkoutObject> workoutObjectList = new ArrayList<>();
@@ -74,6 +76,8 @@ public class workoutController implements Initializable{
     private TextField repsInput;
     @FXML
     private TextField setsInput;
+    @FXML
+    private Label workoutAddedText;
 
     // Currently will take in a work out and store it as a WorkoutObject in a list
     // Trying to figure out best way to integrate it into list view. Will currently show on "View/Edit" tab
@@ -88,7 +92,6 @@ public class workoutController implements Initializable{
 
         WorkoutObject currentWorkout = new WorkoutObject(currentDate, workOutChoice, numSets, numReps, weightAmt);
         workoutObjectList.add(currentWorkout);
-        workoutList.getItems().add(currentWorkout);
 
         System.out.println("Added New Workout: ");
         System.out.println("Date: " + currentDate);
@@ -96,6 +99,7 @@ public class workoutController implements Initializable{
         System.out.println("Sets: " + numSets);
         System.out.println("Reps: " + numReps);
         System.out.println("Weight: " + weightAmt);
+        workoutAddedText.setText("Workout Added!");
     }
 
     @Override
@@ -103,18 +107,38 @@ public class workoutController implements Initializable{
         workoutChoicebox.getItems().addAll(workout);
     }
 
-    //Add/Edit Workout Tab
+    // View/Edit Workout Tab //
 
     @FXML
     private DatePicker calendarViewDelete;
     @FXML
-    //Currently doesn't work
     private Button viewWorkouts;
     @FXML
-
     //Currently just outputs the workouts in a very ugly manner
     public void viewWorkoutHandler(ActionEvent actionEvent) {
+        workoutList.getItems().clear();
 
-        workoutList.getItems();
+        String dateChosen = String.valueOf(calendarViewDelete.getValue());
+        for(WorkoutObject workout : workoutObjectList){
+            if(workout.getDate().equals(dateChosen)){
+                workoutList.getItems().add(workout);
+            }
+        }
+
+
+    }
+    // Cureently will delete the selected work out
+    @FXML
+    private Button deleteWorkout;
+    public void deleteWorkoutHandler(ActionEvent actionEvent) {
+
+        int index = workoutList.getSelectionModel().getSelectedIndex();
+        System.out.println(index);
+
+        if(workoutList.getItems().size() != 0 && workoutObjectList.size() != 0){
+            workoutList.getItems().remove(index);
+            workoutObjectList.remove(index);
+            workoutList.refresh();
+        }
     }
 }
