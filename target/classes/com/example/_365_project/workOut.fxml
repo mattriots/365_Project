@@ -17,6 +17,7 @@
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
 <TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example._365_project.workoutController">
   <tabs>
@@ -24,20 +25,26 @@
       <content>
         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                <children>
-                  <Label layoutX="28.0" layoutY="21.0" text="Login" />
-                  <Label layoutX="28.0" layoutY="46.0" text="Username" />
-                  <Label layoutX="21.0" layoutY="117.0" text="Sign Up" />
-                  <Label layoutX="28.0" layoutY="64.0" text="Password" />
-                  <Label layoutX="28.0" layoutY="130.0" text="Username" />
-                  <Label layoutX="29.0" layoutY="156.0" text="Password" />
-                  <Label layoutX="30.0" layoutY="199.0" text="Confirm Password" />
-                  <TextField fx:id="username" layoutX="124.0" layoutY="42.0" />
-                  <PasswordField fx:id="password" layoutX="125.0" layoutY="69.0" />
-                  <PasswordField layoutX="139.0" layoutY="152.0" />
-                  <PasswordField layoutX="139.0" layoutY="195.0" />
-                  <TextField layoutX="139.0" layoutY="126.0" />
-                  <Button fx:id="login" layoutX="316.0" layoutY="51.0" mnemonicParsing="false" onAction="#submitLoginHandler" text="Login" />
-                  <Button layoutX="316.0" layoutY="152.0" mnemonicParsing="false" text="Sign Up" />
+                  <Label alignment="CENTER" layoutX="250.0" layoutY="14.0" text="Login">
+                     <font>
+                        <Font name="Arial Bold" size="24.0" />
+                     </font></Label>
+                  <Label layoutX="112.0" layoutY="55.0" text="Username" />
+                  <Label layoutX="243.0" layoutY="172.0" text="Sign Up">
+                     <font>
+                        <Font name="Arial Bold" size="24.0" />
+                     </font></Label>
+                  <Label layoutX="113.0" layoutY="95.0" text="Password" />
+                  <Label layoutX="111.0" layoutY="221.0" text="Username" />
+                  <Label layoutX="112.0" layoutY="264.0" text="Password" />
+                  <Label layoutX="111.0" layoutY="303.0" text="Confirm Password" />
+                  <TextField fx:id="username" layoutX="208.0" layoutY="51.0" />
+                  <PasswordField fx:id="password" layoutX="208.0" layoutY="91.0" />
+                  <PasswordField layoutX="208.0" layoutY="260.0" />
+                  <PasswordField layoutX="208.0" layoutY="299.0" />
+                  <TextField layoutX="208.0" layoutY="217.0" />
+                  <Button fx:id="login" layoutX="260.0" layoutY="126.0" mnemonicParsing="false" onAction="#submitLoginHandler" text="Login" />
+                  <Button layoutX="259.0" layoutY="331.0" mnemonicParsing="false" text="Sign Up" />
                </children></AnchorPane>
       </content>
     </Tab>
@@ -66,10 +73,10 @@
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                <children>
                   <Button fx:id="addWorkout" layoutX="252.0" layoutY="291.0" mnemonicParsing="false" onAction="#submitWorkoutHandler" text="Add WorkOut" />
-                  <DatePicker layoutX="36.0" layoutY="44.0" />
-                  <TextField layoutX="225.0" layoutY="112.0" />
-                  <TextField layoutX="225.0" layoutY="173.0" />
-                  <TextField alignment="CENTER" layoutX="225.0" layoutY="234.0" />
+                  <DatePicker fx:id="calendar" layoutX="36.0" layoutY="44.0" />
+                  <TextField  fx:id="setsInput" layoutX="225.0" layoutY="112.0" />
+                  <TextField  fx:id="repsInput" layoutX="225.0" layoutY="173.0" />
+                  <TextField  fx:id="weightInput" layoutX="225.0" layoutY="234.0" />
                   <Label layoutX="79.0" layoutY="26.0" text="Date of Workout" />
                   <Label layoutX="418.0" layoutY="26.0" text="Choose your Workout" />
                   <Label layoutX="286.0" layoutY="95.0" text="Sets" />
@@ -84,8 +91,9 @@
         <content>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                <children>
-                  <DatePicker layoutX="189.0" layoutY="25.0" />
-                  <ListView layoutX="107.0" layoutY="93.0" prefHeight="200.0" prefWidth="338.0" />
+                  <DatePicker fx:id="calendarViewDelete" layoutX="189.0" layoutY="25.0" />
+                  <ListView fx:id="workoutList" layoutX="-2.0" layoutY="76.0" prefHeight="296.0" prefWidth="600.0" />
+                   <Button fx:id="viewWorkouts" layoutX="252.0" layoutY="291.0" mnemonicParsing="false" onAction="#viewWorkoutHandler" text="View WorkOut" />
                </children>
             </AnchorPane>
         </content>
