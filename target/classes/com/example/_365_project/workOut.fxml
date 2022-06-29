@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.SubScene?>
 <?import javafx.scene.chart.CategoryAxis?>
 <?import javafx.scene.chart.LineChart?>
 <?import javafx.scene.chart.NumberAxis?>
@@ -15,11 +14,11 @@
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.Region?>
 
-<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/18">
+<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example._365_project.workoutController">
   <tabs>
     <Tab text="Login/Sign Up">
       <content>
@@ -32,12 +31,12 @@
                   <Label layoutX="28.0" layoutY="130.0" text="Username" />
                   <Label layoutX="29.0" layoutY="156.0" text="Password" />
                   <Label layoutX="30.0" layoutY="199.0" text="Confirm Password" />
-                  <TextField layoutX="124.0" layoutY="42.0" />
-                  <PasswordField layoutX="125.0" layoutY="69.0" />
+                  <TextField fx:id="username" layoutX="124.0" layoutY="42.0" />
+                  <PasswordField fx:id="password" layoutX="125.0" layoutY="69.0" />
                   <PasswordField layoutX="139.0" layoutY="152.0" />
                   <PasswordField layoutX="139.0" layoutY="195.0" />
                   <TextField layoutX="139.0" layoutY="126.0" />
-                  <Button layoutX="316.0" layoutY="51.0" mnemonicParsing="false" text="Login" />
+                  <Button fx:id="login" layoutX="316.0" layoutY="51.0" mnemonicParsing="false" onAction="#submitLoginHandler" text="Login" />
                   <Button layoutX="316.0" layoutY="152.0" mnemonicParsing="false" text="Sign Up" />
                </children></AnchorPane>
       </content>
@@ -57,6 +56,9 @@
                   <Label layoutX="374.0" layoutY="43.0" text="Progress Chart" />
                   <Label layoutX="63.0" layoutY="52.0" text="Welcome Back!" />
                   <Label layoutX="40.0" layoutY="145.0" text="Calories Lost this Week!" />
+                  <Button fx:id="returnBtn" layoutX="92.0" layoutY="305.0" mnemonicParsing="false" onAction="#returnBtnHandler" text="Return" />
+                  <TextArea fx:id="textSum" layoutX="40.0" layoutY="170.0" prefHeight="119.0" prefWidth="143.0" />
+                  <Label layoutX="98.0" layoutY="99.0" text="Test" />
                </children></AnchorPane>
       </content>
     </Tab>
@@ -92,15 +94,7 @@
                     <menus>
                         <Menu mnemonicParsing="false" text="Overall">
                            <items>
-                              <MenuItem mnemonicParsing="false" text="Week">
-                                 <graphic>
-                                    <SubScene height="200.0" width="200.0">
-                                      <root>
-                                        <Region />
-                                      </root>
-                                    </SubScene>
-                                 </graphic>
-                              </MenuItem>
+                              <MenuItem mnemonicParsing="false" text="Week" />
                               <MenuItem mnemonicParsing="false" text="Month" />
                               <MenuItem mnemonicParsing="false" text="Year" />
                            </items>
