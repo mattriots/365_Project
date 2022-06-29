@@ -73,10 +73,10 @@
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                <children>
                   <Button fx:id="addWorkout" layoutX="252.0" layoutY="291.0" mnemonicParsing="false" onAction="#submitWorkoutHandler" text="Add WorkOut" />
-                  <DatePicker layoutX="36.0" layoutY="44.0" />
-                  <TextField layoutX="225.0" layoutY="112.0" />
-                  <TextField layoutX="225.0" layoutY="173.0" />
-                  <TextField alignment="CENTER" layoutX="225.0" layoutY="234.0" />
+                  <DatePicker fx:id="calendar" layoutX="36.0" layoutY="44.0" />
+                  <TextField  fx:id="setsInput" layoutX="225.0" layoutY="112.0" />
+                  <TextField  fx:id="repsInput" layoutX="225.0" layoutY="173.0" />
+                  <TextField  fx:id="weightInput" layoutX="225.0" layoutY="234.0" />
                   <Label layoutX="79.0" layoutY="26.0" text="Date of Workout" />
                   <Label layoutX="418.0" layoutY="26.0" text="Choose your Workout" />
                   <Label layoutX="286.0" layoutY="95.0" text="Sets" />
@@ -91,8 +91,9 @@
         <content>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                <children>
-                  <DatePicker layoutX="189.0" layoutY="25.0" />
+                  <DatePicker fx:id="calendarViewDelete" layoutX="189.0" layoutY="25.0" />
                   <ListView fx:id="workoutList" layoutX="-2.0" layoutY="76.0" prefHeight="296.0" prefWidth="600.0" />
+                   <Button fx:id="viewWorkouts" layoutX="252.0" layoutY="291.0" mnemonicParsing="false" onAction="#viewWorkoutHandler" text="View WorkOut" />
                </children>
             </AnchorPane>
         </content>
