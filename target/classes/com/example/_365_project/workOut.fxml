@@ -20,6 +20,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
 <TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example._365_project.workoutController">
   <tabs>
@@ -74,7 +75,7 @@
       <content>
         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                <children>
-                  <LineChart layoutX="204.0" layoutY="61.0" prefHeight="310.0" prefWidth="396.0">
+                  <LineChart fx:id="lineChart" layoutX="204.0" layoutY="61.0" prefHeight="310.0" prefWidth="396.0" title="Progress Chart">
                     <xAxis>
                       <CategoryAxis side="BOTTOM" />
                     </xAxis>
@@ -82,7 +83,6 @@
                       <NumberAxis side="LEFT" />
                     </yAxis>
                   </LineChart>
-                  <Label layoutX="374.0" layoutY="43.0" text="Progress Chart" />
                   <Label layoutX="52.0" layoutY="14.0" prefHeight="17.0" prefWidth="113.0" text="Profile: (username)" />
                   <Label layoutX="47.0" layoutY="153.0" prefHeight="17.0" prefWidth="137.0" text="Calories lost this week!" />
                   <Button fx:id="returnBtn" layoutX="83.0" layoutY="324.0" mnemonicParsing="false" onAction="#returnBtnHandler" text="Return" />
@@ -100,10 +100,10 @@
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                <children>
                   <Button fx:id="addWorkout" layoutX="254.0" layoutY="310.0" mnemonicParsing="false" onAction="#submitWorkoutHandler" text="Save Exercise" />
-                  <DatePicker layoutX="60.0" layoutY="69.0" />
-                  <TextField layoutX="222.0" layoutY="139.0" />
-                  <TextField layoutX="225.0" layoutY="203.0" />
-                  <TextField alignment="CENTER" layoutX="222.0" layoutY="268.0" />
+                  <DatePicker fx:id="datepicker" layoutX="60.0" layoutY="69.0" />
+                  <TextField fx:id="setsBox" alignment="CENTER" layoutX="222.0" layoutY="139.0" />
+                  <TextField fx:id="repsBox" alignment="CENTER" layoutX="225.0" layoutY="203.0" />
+                  <TextField fx:id="weightBox" alignment="CENTER" layoutX="222.0" layoutY="268.0" />
                   <Label layoutX="82.0" layoutY="25.0" text="Date of Workout">
                      <font>
                         <Font name="System Bold" size="16.0" />
@@ -126,13 +126,21 @@
                <children>
                   <DatePicker layoutX="189.0" layoutY="25.0" />
                   <ListView fx:id="workoutList" layoutX="-2.0" layoutY="76.0" prefHeight="296.0" prefWidth="600.0" />
+                  <Text layoutX="47.0" layoutY="94.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date" wrappingWidth="32.80340576171875">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font></Text>
+                  <Label layoutX="161.0" layoutY="81.0" prefHeight="17.0" prefWidth="29.0" text="Sets" />
+                  <Label layoutX="201.0" layoutY="81.0" prefHeight="17.0" prefWidth="32.0" text="Reps" />
+                  <Label layoutX="247.0" layoutY="81.0" text="Weight" />
+                  <TextArea fx:id="exerciseText" layoutX="45.0" layoutY="109.0" prefHeight="238.0" prefWidth="255.0" />
                </children>
             </AnchorPane>
         </content>
       </Tab>
       <Tab text="Leaderboard">
         <content>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: FFD700;">
                <children>
                   <MenuBar layoutX="137.0" layoutY="14.0">
                     <menus>

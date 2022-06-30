@@ -14,6 +14,7 @@ public class Workout extends Application {
     public void start(Stage stage) throws IOException {
         Parent root = FXMLLoader.load((Objects.requireNonNull(getClass().getResource("workOut.fxml"))));
         Scene scene = new Scene(root);
+        stage.setTitle("Workout Tracker");
         stage.setScene(scene);
         stage.show();
         // added some changes
