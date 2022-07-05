@@ -72,6 +72,12 @@ public class workoutController implements Initializable{
 
     }
 
+
+    @FXML
+    void submitSignUpHandler(ActionEvent event) {
+
+    }
+
     @FXML
     void submitLoginHandler(ActionEvent event) {
         double num1 = Double.parseDouble(username.getText());
