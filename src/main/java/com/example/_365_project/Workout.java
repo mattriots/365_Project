@@ -10,14 +10,23 @@ import java.io.IOException;
 import java.util.Objects;
 
 public class Workout extends Application {
+    private static Stage stg;
+
     @Override
     public void start(Stage stage) throws IOException {
-        Parent root = FXMLLoader.load((Objects.requireNonNull(getClass().getResource("workOut.fxml"))));
+        stg = stage;
+        stage.setResizable(false);
+        Parent root = FXMLLoader.load((Objects.requireNonNull(getClass().getResource("login.fxml"))));
         Scene scene = new Scene(root);
         stage.setTitle("Workout Tracker");
         stage.setScene(scene);
         stage.show();
         // added some changes
+    }
+
+    public void changeScene(String fxml) throws IOException {
+        Parent pane = FXMLLoader.load(Objects.requireNonNull(getClass().getResource(fxml)));
+        stg.getScene().setRoot(pane);
     }
 
     public static void main(String[] args) {
