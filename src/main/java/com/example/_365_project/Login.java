@@ -10,6 +10,9 @@ import javafx.stage.Stage;
 import javafx.event.ActionEvent;
 
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.SQLException;
+
 public class Login {
 
     public Login() {
@@ -40,22 +43,28 @@ public class Login {
 
 
     @FXML
-    private void checkLogin() throws IOException {
+    private void checkLogin() throws IOException, SQLException {
+        Connection connect = MySQL.setConnect();
         Workout m = new Workout();
-        if(username.getText().equals("workout") && password.getText().equals("123")) {
+        if(MySQL.login(connect, username.getText(), password.getText())) {
             wrongLogIn.setText("Success!");
 
             m.changeScene("workOut.fxml");
         }
 
-        else if(username.getText().isEmpty() && password.getText().isEmpty()) {
-            wrongLogIn.setText("Please enter your data.");
+        else if (MySQL.login(connect, username.getText(), password.getText())){
+            wrongLogIn.setText("Wrong username or password! Please try Again");
+        }
+
+        else if(username.getText().isEmpty() || password.getText().isEmpty()){
+            wrongLogIn.setText("Please enter your Username or Password.");
+        }
+
+        else if (!MySQL.checkUser(connect, username.getText(), password.getText())){
+            wrongLogIn.setText("User does not exist. Please Sign Up");
         }
 
 
-        else {
-            wrongLogIn.setText("Wrong username or password!");
-        }
     }
 
     public void checkSignUp() throws IOException{
@@ -64,7 +73,7 @@ public class Login {
     }
 
 
-    public void submitLoginHandler(ActionEvent actionEvent) throws IOException {
+    public void submitLoginHandler(ActionEvent actionEvent) throws IOException, SQLException {
         checkLogin();
     }
 
