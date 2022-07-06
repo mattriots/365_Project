@@ -16,12 +16,14 @@ import java.security.NoSuchAlgorithmException;
 
 import java.io.IOException;
 import java.security.spec.InvalidKeySpecException;
+
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.Objects;
 
 
 public class Login {
+
 
     public Login() {
     }
@@ -89,7 +91,7 @@ public class Login {
             else if(signUpPass.getText().isEmpty() || signUpConfirm.getText().isEmpty() || signUpUser.getText().isEmpty()){
                 wrongSignUp.setText("Please fill in all fields");
             }
-        }
+          }
     }
 
     public static String hashPassword(String password) throws IOException{
@@ -124,6 +126,28 @@ public class Login {
     }
 
     public void submitSignUpHandler(ActionEvent actionEvent) throws SQLException, IOException {
+
+    public void checkSignUp() throws SQLException {
+        Connection connect = MySQL.setConnect();
+        if(!Objects.equals(signUpPass.getText(), signUpConfirm.getText())) wrongSignUp.setText("Both Passwords must be the same");
+        else if(signUpPass.getText().isEmpty() || signUpConfirm.getText().isEmpty() || signUpUser.getText().isEmpty()){
+            wrongSignUp.setText("Please fill in all fields");
+        }
+        else if(!MySQL.checkUser(connect, username.getText())){
+            wrongSignUp.setText("Username already in use, please try a different one");
+        }
+        else {
+            MySQL.signUp(connect, username.getText(), password.getText());
+            wrongSignUp.setText("You have successfully Signed up. Please login");
+        }
+    }
+
+
+    public void submitLoginHandler(ActionEvent actionEvent) throws IOException, SQLException {
+        checkLogin();
+    }
+
+    public void submitSignUpHandler(ActionEvent actionEvent) throws SQLException {
         checkSignUp();
     }
 
