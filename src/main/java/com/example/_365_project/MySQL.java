@@ -26,9 +26,6 @@ class MySQL {
             updateUser.setString(1, username);
             updateUser.setString(2, password);
             updateUser.executeUpdate();
-            String hashPass = "UPDATE User SET password = SHA(?) WHERE username = ?";
-            PreparedStatement updatePass = connect.prepareStatement(hashPass);
-            updatePass.executeUpdate();
         }
 
         catch(SQLException e){
