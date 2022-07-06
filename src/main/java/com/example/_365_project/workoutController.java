@@ -12,14 +12,20 @@ import java.net.URL;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
+import java.util.prefs.Preferences;
+import javafx.scene.control.TableView;
 
 public class workoutController implements Initializable{
+
 
     @FXML
     private Button addWorkout;
 
     @FXML
     private DatePicker datepicker;
+
+    @FXML
+    private TableView<String> workoutTable;
 
     private Label setsLabel;
     private Label repsLabel;
@@ -58,8 +64,10 @@ public class workoutController implements Initializable{
     @FXML
     private ChoiceBox<String> workoutChoicebox;
     private String[] workout = {"Bench Press", "Squat", "Deadlift", "Dumbell Curl", "Barbell Curl",
-    "Push-ups", "Pull-ups"};
+            "Push-ups", "Pull-ups"};
 
+    @FXML
+    private Label profileText;
 
     @FXML
     void workoutChoiceHandler(MouseEvent event) {
@@ -69,6 +77,12 @@ public class workoutController implements Initializable{
 
     @FXML
     void returnBtnHandler(ActionEvent event) {
+
+    }
+
+
+    @FXML
+    void submitSignUpHandler(ActionEvent event) {
 
     }
 
@@ -85,12 +99,15 @@ public class workoutController implements Initializable{
         int sets = Integer.parseInt(setsBox.getText());
         int reps = Integer.parseInt(repsBox.getText());
         int weights = Integer.parseInt(weightBox.getText());
-        exerciseText.appendText(sets + " x " +
+        String exercise = workoutChoicebox.getSelectionModel().getSelectedItem();
+        exerciseText.appendText(exercise+ ": " + sets + " x " +
                 reps+ " x " + weights +"\n");
     }
 
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        profileText.setText("Profile: " + Preferences.userRoot().get("username", "profile"));
 
         workoutChoicebox.getItems().addAll(workout);
     }
