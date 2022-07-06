@@ -12,8 +12,10 @@ import javafx.event.ActionEvent;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.Objects;
 
 public class Login {
+
 
     public Login() {
     }
@@ -46,13 +48,13 @@ public class Login {
     private void checkLogin() throws IOException, SQLException {
         Connection connect = MySQL.setConnect();
         Workout m = new Workout();
+
         if(MySQL.login(connect, username.getText(), password.getText())) {
             wrongLogIn.setText("Success!");
-
             m.changeScene("workOut.fxml");
         }
 
-        else if (MySQL.login(connect, username.getText(), password.getText())){
+        else if (!MySQL.login(connect, username.getText(), password.getText())){
             wrongLogIn.setText("Wrong username or password! Please try Again");
         }
 
@@ -60,16 +62,26 @@ public class Login {
             wrongLogIn.setText("Please enter your Username or Password.");
         }
 
-        else if (!MySQL.checkUser(connect, username.getText(), password.getText())){
+        else if (!MySQL.checkUser(connect, username.getText())){
             wrongLogIn.setText("User does not exist. Please Sign Up");
         }
 
 
     }
 
-    public void checkSignUp() throws IOException{
-        if(signUpPass != signUpConfirm) wrongSignUp.setText("Both Passwords must be the same");
-        else wrongSignUp.setText("Successfully Signed up!");
+    public void checkSignUp() throws SQLException {
+        Connection connect = MySQL.setConnect();
+        if(!Objects.equals(signUpPass.getText(), signUpConfirm.getText())) wrongSignUp.setText("Both Passwords must be the same");
+        else if(signUpPass.getText().isEmpty() || signUpConfirm.getText().isEmpty() || signUpUser.getText().isEmpty()){
+            wrongSignUp.setText("Please fill in all fields");
+        }
+        else if(!MySQL.checkUser(connect, username.getText())){
+            wrongSignUp.setText("Username already in use, please try a different one");
+        }
+        else {
+            MySQL.signUp(connect, username.getText(), password.getText());
+            wrongSignUp.setText("You have successfully Signed up. Please login");
+        }
     }
 
 
@@ -77,7 +89,7 @@ public class Login {
         checkLogin();
     }
 
-    public void submitSignUpHandler(ActionEvent actionEvent) throws IOException {
+    public void submitSignUpHandler(ActionEvent actionEvent) throws SQLException {
         checkSignUp();
     }
 }
