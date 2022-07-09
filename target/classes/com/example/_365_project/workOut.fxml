@@ -7,7 +7,6 @@
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
@@ -15,12 +14,12 @@
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
 <TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example._365_project.workoutController">
     <tabs>
@@ -36,41 +35,77 @@
                                 <NumberAxis side="LEFT" />
                             </yAxis>
                         </LineChart>
-                        <Label fx:id="profileText" layoutX="52.0" layoutY="14.0" prefHeight="17.0" prefWidth="113.0" text="Profile: (username)" />
-                        <Label layoutX="47.0" layoutY="153.0" prefHeight="17.0" prefWidth="137.0" text="Calories lost this week!" />
+                        <Label fx:id="profileText" layoutX="52.0" layoutY="14.0" prefHeight="17.0" prefWidth="113.0" />
+                        <Label layoutX="58.0" layoutY="153.0" prefHeight="17.0" prefWidth="100.0" text="User Information">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font></Label>
                         <Button fx:id="returnBtn" layoutX="83.0" layoutY="324.0" mnemonicParsing="false" onAction="#returnBtnHandler" text="Return" />
-                        <TextArea fx:id="textSum" layoutX="25.0" layoutY="171.0" prefHeight="147.0" prefWidth="181.0" />
                         <ImageView fitHeight="98.0" fitWidth="163.0" layoutX="52.0" layoutY="43.0" pickOnBounds="true" preserveRatio="true">
                             <image>
                                 <Image url="@arnold.png" />
                             </image>
                         </ImageView>
+                  <ChoiceBox fx:id="chartChoicebox" layoutX="312.0" layoutY="31.0" onMouseClicked="#workoutChoiceHandler" prefHeight="16.0" prefWidth="107.0" />
+                  <Text layoutX="366.0" layoutY="22.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Exercise" wrappingWidth="71.47003173828125">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                  </Text>
+                  <Button fx:id="chartButton" layoutX="447.0" layoutY="30.0" mnemonicParsing="false" onAction="#submitChartHandler" text="View" />
+                  <Text layoutX="41.0" layoutY="188.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Age:" wrappingWidth="39.016937255859375" />
+                  <Text layoutX="41.0" layoutY="217.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Weight: " wrappingWidth="60.203125" />
                     </children></AnchorPane>
+            </content>
+        </Tab>
+        <Tab text="Add Workout">
+            <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                    <children>
+                        <Button fx:id="addWorkout" layoutX="254.0" layoutY="310.0" mnemonicParsing="false" onAction="#submitWorkoutHandler" text="Save Exercise" />
+                        <DatePicker fx:id="datepicker" layoutX="60.0" layoutY="69.0" />
+                        <TextField fx:id="setsBox" alignment="CENTER" layoutX="222.0" layoutY="139.0" />
+                        <TextField fx:id="repsBox" alignment="CENTER" layoutX="225.0" layoutY="203.0" />
+                        <TextField fx:id="weightBox" alignment="CENTER" layoutX="222.0" layoutY="268.0" />
+                        <Label layoutX="82.0" layoutY="25.0" text="Date of Workout">
+                            <font>
+                                <Font name="System Bold" size="16.0" />
+                            </font></Label>
+                        <Label layoutX="409.0" layoutY="25.0" prefHeight="25.0" prefWidth="74.0" text="Exercise">
+                            <font>
+                                <Font name="System Bold" size="16.0" />
+                            </font></Label>
+                        <Label layoutX="286.0" layoutY="111.0" text="Sets" />
+                        <Label alignment="CENTER" layoutX="284.0" layoutY="174.0" prefHeight="22.0" prefWidth="26.0" text="Reps" />
+                        <Label alignment="CENTER" layoutX="278.0" layoutY="240.0" text="Weight" />
+                        <ChoiceBox fx:id="workoutChoicebox" layoutX="371.0" layoutY="69.0" onMouseClicked="#workoutChoiceHandler" prefWidth="150.0" />
+                        <Label fx:id="exerciseLabel" layoutX="225.0" layoutY="340.0" />
+                    </children>
+                </AnchorPane>
             </content>
         </Tab>
         <Tab text="View/Delete Workout">
             <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                     <children>
-                        <DatePicker layoutX="189.0" layoutY="25.0" />
-                        <ListView fx:id="workoutList" layoutX="-2.0" layoutY="76.0" prefHeight="296.0" prefWidth="600.0" />
-                        <TextArea fx:id="exerciseText" layoutX="45.0" layoutY="109.0" prefHeight="238.0" prefWidth="255.0" />
-                  <TableView fx:id="workoutTable" layoutX="108.0" layoutY="109.0" prefHeight="200.0" prefWidth="380.0">
-                    <columns>
-                      <TableColumn prefWidth="75.0" text="Date" />
-                      <TableColumn prefWidth="75.0" text="Exercise" />
-                        <TableColumn prefWidth="75.0" text="Sets" />
-                        <TableColumn prefWidth="75.0" text="Reps" />
-                        <TableColumn prefWidth="75.0" text="Weight" />
-                    </columns>
-                  </TableView>
+                        <DatePicker fx:id="table_Datepicker" layoutX="189.0" layoutY="25.0" />
+                        <TableView fx:id="exerciseTable" layoutY="59.0" prefHeight="314.0" prefWidth="600.0">
+                            <columns>
+                                <TableColumn fx:id="table_date" prefWidth="149.60003662109375" text="Date" />
+                                <TableColumn fx:id="table_exercise" prefWidth="156.79998779296875" text="Exercise" />
+                                <TableColumn fx:id="table_sets" prefWidth="98.39996337890625" text="Sets" />
+                                <TableColumn fx:id="table_reps" prefWidth="92.0" text="Reps" />
+                                <TableColumn fx:id="table_weight" prefWidth="104.80010986328125" text="Weight" />
+                            </columns>
+                        </TableView>
+                        <Button fx:id="tableBtn" layoutX="373.0" layoutY="25.0" mnemonicParsing="false" onAction="#submitTableHandler" prefHeight="26.0" prefWidth="55.0" text="Submit" />
                     </children>
                 </AnchorPane>
             </content>
         </Tab>
         <Tab text="Leaderboard">
             <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: FFD700;">
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: #FFE133;">
                     <children>
                         <MenuBar layoutX="137.0" layoutY="14.0">
                             <menus>
@@ -111,31 +146,13 @@
                                 </Menu>
                             </menus>
                         </MenuBar>
-                    </children>
-                </AnchorPane>
-            </content>
-        </Tab>
-        <Tab text="Add Workout">
-            <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                    <children>
-                        <Button fx:id="addWorkout" layoutX="254.0" layoutY="310.0" mnemonicParsing="false" onAction="#submitWorkoutHandler" text="Save Exercise" />
-                        <DatePicker fx:id="datepicker" layoutX="60.0" layoutY="69.0" />
-                        <TextField fx:id="setsBox" alignment="CENTER" layoutX="222.0" layoutY="139.0" />
-                        <TextField fx:id="repsBox" alignment="CENTER" layoutX="225.0" layoutY="203.0" />
-                        <TextField fx:id="weightBox" alignment="CENTER" layoutX="222.0" layoutY="268.0" />
-                        <Label layoutX="82.0" layoutY="25.0" text="Date of Workout">
-                            <font>
-                                <Font name="System Bold" size="16.0" />
-                            </font></Label>
-                        <Label layoutX="409.0" layoutY="25.0" prefHeight="25.0" prefWidth="74.0" text="Exercise">
-                            <font>
-                                <Font name="System Bold" size="16.0" />
-                            </font></Label>
-                        <Label layoutX="286.0" layoutY="111.0" text="Sets" />
-                        <Label alignment="CENTER" layoutX="284.0" layoutY="174.0" prefHeight="22.0" prefWidth="26.0" text="Reps" />
-                        <Label alignment="CENTER" layoutX="278.0" layoutY="240.0" text="Weight" />
-                        <ChoiceBox fx:id="workoutChoicebox" layoutX="371.0" layoutY="69.0" onMouseClicked="#workoutChoiceHandler" prefWidth="150.0" />
+                  <TableView fx:id="leaderboardTable" layoutX="114.0" layoutY="71.0" prefHeight="227.0" prefWidth="375.0" style="-fx-background-color: #FEE96E;">
+                    <columns>
+                      <TableColumn fx:id="username_col" prefWidth="124.00006103515625" text="Username" />
+                      <TableColumn fx:id="exercise_col" prefWidth="131.3333740234375" text="Exercise" />
+                        <TableColumn fx:id="weight_col" prefWidth="112.6666259765625" text="Weight" />
+                    </columns>
+                  </TableView>
                     </children>
                 </AnchorPane>
             </content>
