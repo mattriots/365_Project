@@ -29,7 +29,7 @@
   </component>
   <component name="DBNavigator.Project.DatabaseConsoleManager">
     <connection id="40701d2c-e758-4c27-9b17-44b3590da722">
-      <console name="MySQL Connection" type="STANDARD" schema="workout" session="Main">drop table User;</console>
+      <console name="MySQL Connection" type="STANDARD" schema="workout" session="Main"><![CDATA[drop table User;]]></console>
     </connection>
   </component>
   <component name="DBNavigator.Project.DatabaseFileManager">
