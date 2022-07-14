@@ -26,9 +26,13 @@ import java.util.Objects;
 import java.util.ResourceBundle;
 import java.util.prefs.Preferences;
 
-public class workoutController implements Initializable{
+public class workoutController implements Initializable {
 
     public static Connection connect = MySQL.setConnect();
+    public Menu leader_overall;
+    public MenuItem leader_overall_week;
+    public MenuItem leader_overall_month;
+    public MenuItem leader_overall_year;
 
     @FXML
     private TableView<ModelTable> exerciseTable;
@@ -131,15 +135,14 @@ public class workoutController implements Initializable{
     }
 
     @FXML
-    void submitWorkoutHandler(ActionEvent event){
+    void submitWorkoutHandler(ActionEvent event) {
 
         java.sql.Date getDate = java.sql.Date.valueOf(datepicker.getValue());
-        if(MySQL.inputWorkout(connect, Preferences.userRoot().get("username", "workout"), getDate,
+        if (MySQL.inputWorkout(connect, Preferences.userRoot().get("username", "workout"), getDate,
                 workoutChoicebox.getSelectionModel().getSelectedItem(), setsBox.getText(),
-                repsBox.getText(), weightBox.getText())){
+                repsBox.getText(), weightBox.getText())) {
             exerciseLabel.setText("Your exercise has been logged");
-        }
-        else exerciseLabel.setText("Please try again with valid data");
+        } else exerciseLabel.setText("Please try again with valid data");
     }
 
     @FXML
@@ -160,9 +163,8 @@ public class workoutController implements Initializable{
                 series.getData().add(new XYChart.Data(rs.getString("date"), Double.parseDouble(rs.getString("weight"))));
             }
             lineChart.getData().add(series);
-        }
-        catch (SQLException e){
-            while(e != null){
+        } catch (SQLException e) {
+            while (e != null) {
                 System.err.println(e.getMessage());
                 System.err.println(e.getSQLState());
                 System.err.println(e.getErrorCode());
@@ -175,8 +177,8 @@ public class workoutController implements Initializable{
     @FXML
     void submitTableHandler(ActionEvent event) {
 
-        try{
-            if(table_Datepicker.getValue() == null){
+        try {
+            if (table_Datepicker.getValue() == null) {
                 String selectSQL = "SELECT * FROM ExerciseLog WHERE username = ?";
                 PreparedStatement preparedStatement = connect.prepareStatement(selectSQL);
                 preparedStatement.setString(1, Preferences.userRoot().get("username", "workout"));
@@ -186,22 +188,20 @@ public class workoutController implements Initializable{
                     list.add(new ModelTable(rs.getString("date"), rs.getString("exercise"), rs.getString("sets"),
                             rs.getString("reps"), rs.getString("weight")));
                 }
-            }
-            else{
+            } else {
                 String newSelect = "SELECT * FROM ExerciseLog WHERE username = ? AND date = ?";
                 PreparedStatement newStatement = connect.prepareStatement(newSelect);
                 newStatement.setString(1, Preferences.userRoot().get("username", "workout"));
                 newStatement.setString(2, String.valueOf(table_Datepicker.getValue()));
                 ResultSet newRs = newStatement.executeQuery();
                 list.removeAll(list);
-                while(newRs.next()){
+                while (newRs.next()) {
                     list.add(new ModelTable(newRs.getString("date"), newRs.getString("exercise"), newRs.getString("sets"),
                             newRs.getString("reps"), newRs.getString("weight")));
                 }
             }
-        }
-        catch (SQLException e){
-            while(e != null){
+        } catch (SQLException e) {
+            while (e != null) {
                 System.err.println(e.getMessage());
                 System.err.println(e.getSQLState());
                 System.err.println(e.getErrorCode());
@@ -233,9 +233,8 @@ public class workoutController implements Initializable{
                 leaderboardList.add(new LeaderboardTable(rs.getString("username"),
                         rs.getString("exercise"), rs.getString("weight")));
             }
-        }
-        catch (SQLException e){
-            while(e != null){
+        } catch (SQLException e) {
+            while (e != null) {
                 System.err.println(e.getMessage());
                 System.err.println(e.getSQLState());
                 System.err.println(e.getErrorCode());
@@ -251,4 +250,90 @@ public class workoutController implements Initializable{
     }
 
 
+    public void leaderOverallHandler(ActionEvent actionEvent) {
+
+        leader_overall_week.setOnAction(event -> {
+            try {
+                String selectSQL = "SELECT username, date, sum(calories) as calSum" +
+                        "    FROM ExerciseLog" +
+                        "    WHERE datediff(date, current_date()) <= 7" +
+                        "    GROUP by username, date" +
+                        "    ORDER by calSum desc;";
+                PreparedStatement preparedStatement = connect.prepareStatement(selectSQL);
+                ResultSet rs = preparedStatement.executeQuery();
+                leaderboardList.removeAll(leaderboardList);
+
+                while (rs.next()) {
+                    leaderboardList.add(new LeaderboardTable(rs.getString("username"),
+                            rs.getString("date"), rs.getString("calSum")));
+                }
+            } catch (SQLException e) {
+                while (e != null) {
+                    System.err.println(e.getMessage());
+                    System.err.println(e.getSQLState());
+                    System.err.println(e.getErrorCode());
+                    e = e.getNextException();
+
+                }
+            }
+        });
+
+        leader_overall_month.setOnAction(event -> {
+            try {
+                String selectSQL = "SELECT username, date, sum(calories) as calSum" +
+                        "    FROM ExerciseLog" +
+                        "    WHERE datediff(date, current_date()) <= 30" +
+                        "    GROUP by username, date" +
+                        "    ORDER by calSum desc;";
+                PreparedStatement preparedStatement = connect.prepareStatement(selectSQL);
+                ResultSet rs = preparedStatement.executeQuery();
+                leaderboardList.removeAll(leaderboardList);
+
+                while (rs.next()) {
+                    leaderboardList.add(new LeaderboardTable(rs.getString("username"),
+                            rs.getString("date"), rs.getString("calSum")));
+                }
+            } catch (SQLException e) {
+                while (e != null) {
+                    System.err.println(e.getMessage());
+                    System.err.println(e.getSQLState());
+                    System.err.println(e.getErrorCode());
+                    e = e.getNextException();
+
+                }
+            }
+        });
+
+        leader_overall_year.setOnAction(event -> {
+            try {
+                String selectSQL = "SELECT username, date, sum(calories) as calSum" +
+                        "    FROM ExerciseLog" +
+                        "    WHERE datediff(date, current_date()) <= 365" +
+                        "    GROUP by username, date" +
+                        "    ORDER by calSum desc;";
+                PreparedStatement preparedStatement = connect.prepareStatement(selectSQL);
+                ResultSet rs = preparedStatement.executeQuery();
+                leaderboardList.removeAll(leaderboardList);
+
+                while (rs.next()) {
+                    leaderboardList.add(new LeaderboardTable(rs.getString("username"),
+                            rs.getString("date"), rs.getString("calSum")));
+                }
+            } catch (SQLException e) {
+                while (e != null) {
+                    System.err.println(e.getMessage());
+                    System.err.println(e.getSQLState());
+                    System.err.println(e.getErrorCode());
+                    e = e.getNextException();
+
+                }
+            }
+        });
+
+        username_col.setCellValueFactory(new PropertyValueFactory<>("username"));
+        exercise_col.setCellValueFactory(new PropertyValueFactory<>("exercise"));
+        weight_col.setCellValueFactory(new PropertyValueFactory<>("weight"));
+
+        leaderboardTable.setItems(leaderboardList);
+    }
 }

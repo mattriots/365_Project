@@ -88,8 +88,8 @@ class MySQL {
     public static boolean inputWorkout(Connection connect, String username, Date date, String exercise,
                                        String sets, String reps, String weight){
         try{
-            String selectSQL = "insert into ExerciseLog (username, date, exercise, sets, reps, weight) " +
-                    "values (?,?,?,?,?,?) ";
+            String selectSQL = "insert into ExerciseLog (username, date, exercise, sets, reps, weight, calories) " +
+                    "values (?,?,?,?,?,?,?) ";
             PreparedStatement preparedStatement = connect.prepareStatement(selectSQL);
             preparedStatement.setString(1, username);
             preparedStatement.setString(2, String.valueOf(date));
@@ -97,6 +97,8 @@ class MySQL {
             preparedStatement.setString(4, sets);
             preparedStatement.setString(5, reps);
             preparedStatement.setString(6, weight);
+            int calories = (int) (6 * (150 * 0.453) * (20.0 / 60));
+            preparedStatement.setString(7, String.valueOf(calories));
             preparedStatement.executeUpdate();
             return true;
         }

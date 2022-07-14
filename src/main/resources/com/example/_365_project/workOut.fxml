@@ -109,35 +109,35 @@
                     <children>
                         <MenuBar layoutX="137.0" layoutY="14.0">
                             <menus>
-                                <Menu mnemonicParsing="false" text="Overall">
+                                <Menu fx:id="leader_overall" mnemonicParsing="false" onAction="#leaderOverallHandler" text="Overall">
+                                    <items>
+                                        <MenuItem fx:id="leader_overall_week" mnemonicParsing="false" text="Week" />
+                                        <MenuItem fx:id="leader_overall_month" mnemonicParsing="false" text="Month" />
+                                        <MenuItem fx:id="leader_overall_year" mnemonicParsing="false" text="Year" />
+                                    </items>
+                                </Menu>
+                                <Menu fx:id="leader_squat" mnemonicParsing="false" text="Squat ">
                                     <items>
                                         <MenuItem mnemonicParsing="false" text="Week" />
                                         <MenuItem mnemonicParsing="false" text="Month" />
                                         <MenuItem mnemonicParsing="false" text="Year" />
                                     </items>
                                 </Menu>
-                                <Menu mnemonicParsing="false" text="Squat ">
+                                <Menu fx:id="leader_bench" mnemonicParsing="false" text="Bench">
                                     <items>
                                         <MenuItem mnemonicParsing="false" text="Week" />
                                         <MenuItem mnemonicParsing="false" text="Month" />
                                         <MenuItem mnemonicParsing="false" text="Year" />
                                     </items>
                                 </Menu>
-                                <Menu mnemonicParsing="false" text="Bench">
+                                <Menu fx:id="leader_dead" mnemonicParsing="false" text="Dead Lift">
                                     <items>
                                         <MenuItem mnemonicParsing="false" text="Week" />
                                         <MenuItem mnemonicParsing="false" text="Month" />
                                         <MenuItem mnemonicParsing="false" text="Year" />
                                     </items>
                                 </Menu>
-                                <Menu mnemonicParsing="false" text="Dead Lift">
-                                    <items>
-                                        <MenuItem mnemonicParsing="false" text="Week" />
-                                        <MenuItem mnemonicParsing="false" text="Month" />
-                                        <MenuItem mnemonicParsing="false" text="Year" />
-                                    </items>
-                                </Menu>
-                                <Menu mnemonicParsing="false" text="Calories Lost">
+                                <Menu fx:id="leader_calories" mnemonicParsing="false" text="Calories Lost">
                                     <items>
                                         <MenuItem mnemonicParsing="false" text="Week" />
                                         <MenuItem mnemonicParsing="false" text="Month" />
