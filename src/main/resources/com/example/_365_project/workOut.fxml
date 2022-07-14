@@ -36,11 +36,11 @@
                             </yAxis>
                         </LineChart>
                         <Label fx:id="profileText" layoutX="52.0" layoutY="14.0" prefHeight="17.0" prefWidth="113.0" />
-                        <Label layoutX="58.0" layoutY="153.0" prefHeight="17.0" prefWidth="100.0" text="User Information">
+                        <Label alignment="CENTER" layoutX="52.0" layoutY="152.0" prefHeight="17.0" prefWidth="102.0" text="User Information">
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font></Label>
-                        <Button fx:id="returnBtn" layoutX="83.0" layoutY="324.0" mnemonicParsing="false" onAction="#returnBtnHandler" text="Return" />
+                        <Button fx:id="updateBtn" layoutX="74.0" layoutY="233.0" mnemonicParsing="false" onAction="#updateBtnHandler" text="Update" />
                         <ImageView fitHeight="98.0" fitWidth="163.0" layoutX="52.0" layoutY="43.0" pickOnBounds="true" preserveRatio="true">
                             <image>
                                 <Image url="@arnold.png" />
@@ -52,9 +52,13 @@
                         <Font name="System Bold" size="18.0" />
                      </font>
                   </Text>
-                  <Button fx:id="chartButton" layoutX="447.0" layoutY="30.0" mnemonicParsing="false" onAction="#submitChartHandler" text="View" />
-                  <Text layoutX="41.0" layoutY="188.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Age:" wrappingWidth="39.016937255859375" />
-                  <Text layoutX="41.0" layoutY="217.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Weight: " wrappingWidth="60.203125" />
+                  <Button fx:id="chartButton" layoutX="446.0" layoutY="30.0" mnemonicParsing="false" onAction="#submitChartHandler" text="View" />
+                  <Text layoutX="50.0" layoutY="188.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Age:" wrappingWidth="32.016937255859375" />
+                  <Text layoutX="32.0" layoutY="218.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Weight: " wrappingWidth="50.203125" />
+                  <TextField fx:id="ageUpdateBox" alignment="CENTER" layoutX="150.0" layoutY="171.0" prefHeight="26.0" prefWidth="39.0" />
+                  <TextField fx:id="weightUpdateBox" alignment="CENTER" layoutX="150.0" layoutY="201.0" prefHeight="26.0" prefWidth="39.0" />
+                  <Label fx:id="ageStatLabel" layoutX="80.0" layoutY="176.0" text="Label" />
+                  <Label fx:id="weightStatLabel" layoutX="80.0" layoutY="205.0" text="Label" />
                     </children></AnchorPane>
             </content>
         </Tab>
@@ -62,22 +66,22 @@
             <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                     <children>
-                        <Button fx:id="addWorkout" layoutX="254.0" layoutY="310.0" mnemonicParsing="false" onAction="#submitWorkoutHandler" text="Save Exercise" />
+                        <Button fx:id="addWorkout" layoutX="251.0" layoutY="308.0" mnemonicParsing="false" onAction="#submitWorkoutHandler" text="Save Exercise" />
                         <DatePicker fx:id="datepicker" layoutX="60.0" layoutY="69.0" />
                         <TextField fx:id="setsBox" alignment="CENTER" layoutX="222.0" layoutY="139.0" />
-                        <TextField fx:id="repsBox" alignment="CENTER" layoutX="225.0" layoutY="203.0" />
+                        <TextField fx:id="repsBox" alignment="CENTER" layoutX="221.0" layoutY="203.0" />
                         <TextField fx:id="weightBox" alignment="CENTER" layoutX="222.0" layoutY="268.0" />
-                        <Label layoutX="82.0" layoutY="25.0" text="Date of Workout">
+                        <Label layoutX="98.0" layoutY="38.0" text="Date of Workout">
                             <font>
                                 <Font name="System Bold" size="16.0" />
                             </font></Label>
-                        <Label layoutX="409.0" layoutY="25.0" prefHeight="25.0" prefWidth="74.0" text="Exercise">
+                        <Label alignment="CENTER" layoutX="409.0" layoutY="35.0" prefHeight="25.0" prefWidth="74.0" text="Exercise">
                             <font>
                                 <Font name="System Bold" size="16.0" />
                             </font></Label>
-                        <Label layoutX="286.0" layoutY="111.0" text="Sets" />
-                        <Label alignment="CENTER" layoutX="284.0" layoutY="174.0" prefHeight="22.0" prefWidth="26.0" text="Reps" />
-                        <Label alignment="CENTER" layoutX="278.0" layoutY="240.0" text="Weight" />
+                        <Label layoutX="286.0" layoutY="117.0" text="Sets" />
+                        <Label alignment="CENTER" layoutX="280.0" layoutY="176.0" prefHeight="22.0" prefWidth="36.0" text="Reps" />
+                        <Label alignment="CENTER" layoutX="278.0" layoutY="246.0" text="Weight" />
                         <ChoiceBox fx:id="workoutChoicebox" layoutX="371.0" layoutY="69.0" onMouseClicked="#workoutChoiceHandler" prefWidth="150.0" />
                         <Label fx:id="exerciseLabel" layoutX="225.0" layoutY="340.0" />
                     </children>
@@ -107,7 +111,7 @@
             <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: #FFE133;">
                     <children>
-                        <MenuBar layoutX="137.0" layoutY="14.0">
+                        <MenuBar layoutX="131.0" layoutY="34.0">
                             <menus>
                                 <Menu mnemonicParsing="false" text="Overall">
                                     <items>
@@ -146,7 +150,7 @@
                                 </Menu>
                             </menus>
                         </MenuBar>
-                  <TableView fx:id="leaderboardTable" layoutX="114.0" layoutY="71.0" prefHeight="227.0" prefWidth="375.0" style="-fx-background-color: #FEE96E;">
+                  <TableView fx:id="leaderboardTable" layoutX="113.0" layoutY="86.0" prefHeight="227.0" prefWidth="375.0" style="-fx-background-color: #FEE96E;">
                     <columns>
                       <TableColumn fx:id="username_col" prefWidth="124.00006103515625" text="Username" />
                       <TableColumn fx:id="exercise_col" prefWidth="131.3333740234375" text="Exercise" />

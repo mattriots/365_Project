@@ -30,6 +30,7 @@ public class workoutController implements Initializable{
 
     public static Connection connect = MySQL.setConnect();
 
+
     @FXML
     private TableView<ModelTable> exerciseTable;
 
@@ -86,8 +87,7 @@ public class workoutController implements Initializable{
     private PasswordField password;
 
     @FXML
-    private Button returnBtn;
-
+    private Button updateBtn;
 
     @FXML
     private Button tableBtn;
@@ -115,6 +115,18 @@ public class workoutController implements Initializable{
     @FXML
     private Button chartButton;
 
+    @FXML
+    private TextField weightUpdateBox;
+
+    @FXML
+    private TextField ageUpdateBox;
+
+    @FXML
+    private Label weightStatLabel;
+
+    @FXML
+    private Label ageStatLabel;
+
     private String[] workout = {"Bench Press", "Squat", "Deadlift", "Dumbell Curl", "Barbell Curl",
             "Push-ups", "Pull-ups"};
 
@@ -126,8 +138,57 @@ public class workoutController implements Initializable{
     }
 
     @FXML
-    void returnBtnHandler(ActionEvent event) {
+    void updateBtnHandler(ActionEvent event) {
+        try {
 
+            // if only age updated
+            if((weightUpdateBox.getText().isBlank() || weightUpdateBox.getText().isBlank())
+                    && isInteger(ageUpdateBox.getText())){
+                String selectWeight = "UPDATE UserInfo SET age = ? WHERE username = ?";
+                PreparedStatement updateStats = connect.prepareStatement(selectWeight);
+                updateStats.setString(1, ageUpdateBox.getText());
+                updateStats.setString(2, Preferences.userRoot().get("username", "profile"));
+                updateStats.executeUpdate();
+
+                ageStatLabel.setText(ageUpdateBox.getText());
+            }
+
+            // if only weight updated
+            if((ageUpdateBox.getText().isBlank() || ageUpdateBox.getText().isBlank())
+                    && isInteger(weightUpdateBox.getText())){
+                String selectWeight = "UPDATE UserInfo SET weight = ? WHERE username = ?";
+                PreparedStatement updateStats = connect.prepareStatement(selectWeight);
+                updateStats.setString(1, weightUpdateBox.getText());
+                updateStats.setString(2, Preferences.userRoot().get("username", "profile"));
+                updateStats.executeUpdate();
+
+                weightStatLabel.setText(weightUpdateBox.getText());
+            }
+
+            // if both age and weight updated
+            if(isInteger(ageUpdateBox.getText()) && isInteger(weightUpdateBox.getText())) {
+
+                String selectWeight = "UPDATE UserInfo SET age = ?, weight = ? WHERE username = ?";
+                PreparedStatement updateStats = connect.prepareStatement(selectWeight);
+                updateStats.setString(1, ageUpdateBox.getText());
+                updateStats.setString(2, weightUpdateBox.getText());
+                updateStats.setString(3, Preferences.userRoot().get("username", "profile"));
+                updateStats.executeUpdate();
+
+                ageStatLabel.setText(ageUpdateBox.getText());
+                weightStatLabel.setText(weightUpdateBox.getText());
+            }
+            ageUpdateBox.setText("");
+            weightUpdateBox.setText("");
+        }
+        catch (SQLException e){
+            while(e != null){
+                System.err.println(e.getMessage());
+                System.err.println(e.getSQLState());
+                System.err.println(e.getErrorCode());
+                e = e.getNextException();
+            }
+        }
     }
 
     @FXML
@@ -223,7 +284,16 @@ public class workoutController implements Initializable{
         workoutChoicebox.getItems().addAll(workout);
         chartChoicebox.getItems().addAll(workout);
 
+
         try {
+            String newSelect = "SELECT * FROM UserInfo WHERE username = ?";
+            PreparedStatement newStatement = connect.prepareStatement(newSelect);
+            newStatement.setString(1, Preferences.userRoot().get("username", "profile"));
+            ResultSet newRs = newStatement.executeQuery();
+            newRs.next();
+            ageStatLabel.setText(newRs.getString("age"));
+            weightStatLabel.setText(newRs.getString("weight"));
+
             String selectSQL = "SELECT username, exercise, weight FROM ExerciseLog ORDER BY exercise ASC, weight DESC";
             PreparedStatement preparedStatement = connect.prepareStatement(selectSQL);
             ResultSet rs = preparedStatement.executeQuery();
@@ -248,6 +318,18 @@ public class workoutController implements Initializable{
 
         leaderboardTable.setItems(leaderboardList);
 
+    }
+
+    public static boolean isInteger(String strNum) {
+        if (strNum == null) {
+            return false;
+        }
+        try {
+            double i = Integer.parseInt(strNum);
+        } catch (NumberFormatException nfe) {
+            return false;
+        }
+        return true;
     }
 
 

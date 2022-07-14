@@ -44,12 +44,12 @@
                     </font></Label>
                 <TextField fx:id="username" layoutX="190.0" layoutY="51.0" promptText="Username" />
                 <PasswordField fx:id="password" layoutX="190.0" layoutY="91.0" promptText="Password" />
+                <Button fx:id="login" layoutX="237.0" layoutY="126.0" mnemonicParsing="false" onAction="#submitLoginHandler" text="Login" />
+                <TextField fx:id="signUpUser" layoutX="190.0" layoutY="217.0" promptText="Username" />
                 <PasswordField fx:id="signUpPass" layoutX="190.0" layoutY="260.0" promptText="Password" />
                 <PasswordField fx:id="signUpConfirm" layoutX="190.0" layoutY="299.0" promptText="Password" />
-                <TextField fx:id="signUpUser" layoutX="190.0" layoutY="217.0" promptText="Username" />
-                <Button fx:id="login" layoutX="237.0" layoutY="126.0" mnemonicParsing="false" onAction="#submitLoginHandler" text="Login" />
-                <Label fx:id="wrongLogIn" layoutX="350.0" layoutY="56.0" textFill="RED" />
                 <Button fx:id="signupBtn" layoutX="236.0" layoutY="331.0" mnemonicParsing="false" onAction="#submitSignUpHandler" text="Sign Up" />
+                <Label fx:id="wrongLogIn" layoutX="350.0" layoutY="56.0" textFill="RED" />
                 <ImageView fitHeight="255.0" fitWidth="199.0" layoutX="375.0" layoutY="78.0" pickOnBounds="true" preserveRatio="true">
                     <image>
                         <Image url="@buff_doge.png" />

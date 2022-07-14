@@ -1,4 +1,7 @@
 package com.example._365_project;
+import javafx.concurrent.Task;
+import javafx.concurrent.WorkerStateEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -8,6 +11,9 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import javafx.event.ActionEvent;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.prefs.*;
 
 import javax.crypto.SecretKeyFactory;
@@ -52,6 +58,7 @@ public class Login {
     @FXML
     private PasswordField password;
 
+
     @FXML
     private void checkLogin() throws IOException, SQLException, NoSuchAlgorithmException, InvalidKeySpecException {
         Connection connect = MySQL.setConnect();
@@ -69,14 +76,17 @@ public class Login {
 
         else if (!MySQL.login(connect, username.getText(), password.getText())){
             wrongLogIn.setText("Wrong username or password! Please try Again");
+            clearLabel(wrongLogIn, 3000);
         }
 
         else if(username.getText().isEmpty() || password.getText().isEmpty()){
             wrongLogIn.setText("Please enter your Username or Password.");
+            clearLabel(wrongLogIn, 3000);
         }
 
         else if (!MySQL.checkUser(connect, username.getText())){
             wrongLogIn.setText("User does not exist. Please Sign Up");
+            clearLabel(wrongLogIn, 3000);
         }
     }
 
@@ -89,13 +99,16 @@ public class Login {
         if(!Objects.equals(signUpPass.getText(), signUpConfirm.getText())) wrongSignUp.setText("Both Passwords must be the same");
         else if(signUpPass.getText().isEmpty() || signUpConfirm.getText().isEmpty() || signUpUser.getText().isEmpty()){
             wrongSignUp.setText("Please fill in all fields");
+            clearLabel(wrongSignUp, 3000);
         }
         else if(!MySQL.checkUser(connect, signUpUser.getText())){
             wrongSignUp.setText("Username already in use");
+            clearLabel(wrongSignUp, 3000);
         }
         else {
             MySQL.signUp(connect, signUpUser.getText(), hashPass);
             wrongSignUp.setText("You have successfully Signed up. Please login");
+            clearLabel(wrongSignUp, 5000);
         }
     }
 
@@ -125,9 +138,11 @@ public class Login {
     }
 
 
+
     public void submitLoginHandler(ActionEvent actionEvent) throws IOException, SQLException,
             NoSuchAlgorithmException, InvalidKeySpecException {
         checkLogin();
+
     }
 
     public void submitSignUpHandler(ActionEvent actionEvent) throws SQLException, IOException {
@@ -135,5 +150,27 @@ public class Login {
     }
 
 
+    private static void clearLabel(Label label, int milliseconds) {
+        Task<Void> sleeper = new Task<Void>() {
+            @Override
+            protected Void call() throws Exception {
+                try {
+                    Thread.sleep(milliseconds);
+                } catch (InterruptedException e) {
+                }
+                return null;
+            }
+        };
+
+        sleeper.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
+            @Override
+            public void handle(WorkerStateEvent event) {
+                if(!label.getText().equals(""))
+                    label.setText("");
+            }
+        });
+
+        new Thread(sleeper).start();
+    }
 
 }
