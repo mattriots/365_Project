@@ -27,7 +27,7 @@
             <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                     <children>
-                        <LineChart fx:id="lineChart" layoutX="204.0" layoutY="61.0" prefHeight="310.0" prefWidth="396.0" title="Progress Chart">
+                        <LineChart fx:id="lineChart" layoutX="204.0" layoutY="61.0" prefHeight="310.0" prefWidth="396.0" stylesheets="@../../../../java/com/example/_365_project/style.css" title="Progress Chart">
                             <xAxis>
                                 <CategoryAxis side="BOTTOM" />
                             </xAxis>
@@ -40,7 +40,7 @@
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font></Label>
-                        <Button fx:id="returnBtn" layoutX="83.0" layoutY="324.0" mnemonicParsing="false" onAction="#returnBtnHandler" text="Return" />
+                        <Button fx:id="returnBtn" layoutX="83.0" layoutY="324.0" mnemonicParsing="false" onAction="#returnBtnHandler" text="Update Info" />
                         <ImageView fitHeight="98.0" fitWidth="163.0" layoutX="52.0" layoutY="43.0" pickOnBounds="true" preserveRatio="true">
                             <image>
                                 <Image url="@arnold.png" />
@@ -89,7 +89,7 @@
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                     <children>
                         <DatePicker fx:id="table_Datepicker" layoutX="189.0" layoutY="25.0" />
-                        <TableView fx:id="exerciseTable" layoutY="59.0" prefHeight="314.0" prefWidth="600.0">
+                        <TableView fx:id="exerciseTable" layoutY="59.0" prefHeight="265.0" prefWidth="600.0">
                             <columns>
                                 <TableColumn fx:id="table_date" prefWidth="149.60003662109375" text="Date" />
                                 <TableColumn fx:id="table_exercise" prefWidth="156.79998779296875" text="Exercise" />
@@ -99,6 +99,7 @@
                             </columns>
                         </TableView>
                         <Button fx:id="tableBtn" layoutX="373.0" layoutY="25.0" mnemonicParsing="false" onAction="#submitTableHandler" prefHeight="26.0" prefWidth="55.0" text="Submit" />
+                  <Button fx:id="deleteButton" layoutX="237.0" layoutY="333.0" mnemonicParsing="false" onAction="#deleteButtonHandler" text="Delete Selected Workout" />
                     </children>
                 </AnchorPane>
             </content>

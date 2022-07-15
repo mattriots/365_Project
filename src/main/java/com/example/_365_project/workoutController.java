@@ -4,14 +4,20 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.chart.LineChart;
 import javafx.scene.control.ListView;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -88,6 +94,8 @@ public class workoutController implements Initializable{
     @FXML
     private Button returnBtn;
 
+    @FXML
+    private Button deleteButton;
 
     @FXML
     private Button tableBtn;
@@ -126,7 +134,16 @@ public class workoutController implements Initializable{
     }
 
     @FXML
-    void returnBtnHandler(ActionEvent event) {
+    void returnBtnHandler(ActionEvent event) throws IOException {
+        Stage stage;
+        Parent root;
+        stage = new Stage();
+        root = FXMLLoader.load(getClass().getResource("update_info.fxml"));
+        stage.setScene(new Scene(root));
+        stage.setTitle("Update User Info");
+        stage.initModality((Modality.APPLICATION_MODAL));
+        stage.initOwner(returnBtn.getScene().getWindow());
+        stage.showAndWait();
 
     }
 
@@ -215,6 +232,11 @@ public class workoutController implements Initializable{
         table_weight.setCellValueFactory(new PropertyValueFactory<>("weight"));
 
         exerciseTable.setItems(list);
+    }
+
+    @FXML
+    void deleteButtonHandler(ActionEvent event) {
+        exerciseTable.getItems().removeAll(exerciseTable.getSelectionModel().getSelectedItem());
     }
 
     @Override
