@@ -33,6 +33,18 @@ public class workoutController implements Initializable {
     public MenuItem leader_overall_week;
     public MenuItem leader_overall_month;
     public MenuItem leader_overall_year;
+    public MenuItem leader_squat_week;
+    public MenuItem leader_squat_month;
+    public MenuItem leader_squat_year;
+    public MenuItem leader_bench_week;
+    public MenuItem leader_bench_month;
+    public MenuItem leader_bench_year;
+    public MenuItem leader_dead_week;
+    public MenuItem leader_dead_month;
+    public MenuItem leader_dead_year;
+    public MenuItem leader_cal_week;
+    public MenuItem leader_cal_month;
+    public MenuItem leader_cal_year;
 
     @FXML
     private TableView<ModelTable> exerciseTable;
@@ -252,7 +264,356 @@ public class workoutController implements Initializable {
 
     public void leaderOverallHandler(ActionEvent actionEvent) {
 
+        //Overall by week
         leader_overall_week.setOnAction(event -> {
+            try {
+                String selectSQL = "SELECT username, date, AVG(calories) as calAvg" +
+                        "    FROM ExerciseLog" +
+                        "    WHERE datediff(date, current_date()) <= 7" +
+                        "    GROUP by username, date" +
+                        "    ORDER by calAvg desc;";
+                PreparedStatement preparedStatement = connect.prepareStatement(selectSQL);
+                ResultSet rs = preparedStatement.executeQuery();
+                leaderboardList.removeAll(leaderboardList);
+
+                while (rs.next()) {
+                    leaderboardList.add(new LeaderboardTable(rs.getString("username"),
+                            rs.getString("date"), rs.getString("calAvg")));
+                }
+            } catch (SQLException e) {
+                while (e != null) {
+                    System.err.println(e.getMessage());
+                    System.err.println(e.getSQLState());
+                    System.err.println(e.getErrorCode());
+                    e = e.getNextException();
+
+                }
+            }
+        });
+        //Overall by month
+        leader_overall_month.setOnAction(event -> {
+            try {
+                String selectSQL = "SELECT username, date, AVG(calories) as calAvg" +
+                        "    FROM ExerciseLog" +
+                        "    WHERE datediff(date, current_date()) <= 30" +
+                        "    GROUP by username, date" +
+                        "    ORDER by calAvg desc;";
+                PreparedStatement preparedStatement = connect.prepareStatement(selectSQL);
+                ResultSet rs = preparedStatement.executeQuery();
+                leaderboardList.removeAll(leaderboardList);
+
+                while (rs.next()) {
+                    leaderboardList.add(new LeaderboardTable(rs.getString("username"),
+                            rs.getString("date"), rs.getString("calAvg")));
+                }
+            } catch (SQLException e) {
+                while (e != null) {
+                    System.err.println(e.getMessage());
+                    System.err.println(e.getSQLState());
+                    System.err.println(e.getErrorCode());
+                    e = e.getNextException();
+
+                }
+            }
+        });
+        //Overall by Year
+        leader_overall_year.setOnAction(event -> {
+            try {
+                String selectSQL = "SELECT username, date, AVG(calories) as calAvg" +
+                        "    FROM ExerciseLog" +
+                        "    WHERE datediff(date, current_date()) <= 365" +
+                        "    GROUP by username, date" +
+                        "    ORDER by calAvg desc;";
+                PreparedStatement preparedStatement = connect.prepareStatement(selectSQL);
+                ResultSet rs = preparedStatement.executeQuery();
+                leaderboardList.removeAll(leaderboardList);
+
+                while (rs.next()) {
+                    leaderboardList.add(new LeaderboardTable(rs.getString("username"),
+                            rs.getString("date"), rs.getString("calAvg")));
+                }
+            } catch (SQLException e) {
+                while (e != null) {
+                    System.err.println(e.getMessage());
+                    System.err.println(e.getSQLState());
+                    System.err.println(e.getErrorCode());
+                    e = e.getNextException();
+
+                }
+            }
+        });
+
+        username_col.setCellValueFactory(new PropertyValueFactory<>("username"));
+        exercise_col.setCellValueFactory(new PropertyValueFactory<>("exercise"));
+        weight_col.setCellValueFactory(new PropertyValueFactory<>("weight"));
+
+        leaderboardTable.setItems(leaderboardList);
+    }
+
+    public void leaderSquatHandler(ActionEvent actionEvent) {
+
+        leader_squat_week.setOnAction(event -> {
+            try {
+                String selectSQL = "SELECT username, date, sum(calories) as calSum" +
+                        "    FROM ExerciseLog" +
+                        "    WHERE datediff(date, current_date()) <= 7 AND exercise = 'Squat'" +
+                        "    GROUP by username, date" +
+                        "    ORDER by calSum desc;";
+                PreparedStatement preparedStatement = connect.prepareStatement(selectSQL);
+                ResultSet rs = preparedStatement.executeQuery();
+                leaderboardList.removeAll(leaderboardList);
+
+                while (rs.next()) {
+                    leaderboardList.add(new LeaderboardTable(rs.getString("username"),
+                            rs.getString("date"), rs.getString("calSum")));
+                }
+            } catch (SQLException e) {
+                while (e != null) {
+                    System.err.println(e.getMessage());
+                    System.err.println(e.getSQLState());
+                    System.err.println(e.getErrorCode());
+                    e = e.getNextException();
+
+                }
+            }
+        });
+        //Overall by month
+        leader_squat_month.setOnAction(event -> {
+            try {
+                String selectSQL = "SELECT username, date, sum(calories) as calSum" +
+                        "    FROM ExerciseLog" +
+                        "    WHERE datediff(date, current_date()) <= 30 AND exercise = 'Squat'" +
+                        "    GROUP by username, date" +
+                        "    ORDER by calSum desc;";
+                PreparedStatement preparedStatement = connect.prepareStatement(selectSQL);
+                ResultSet rs = preparedStatement.executeQuery();
+                leaderboardList.removeAll(leaderboardList);
+
+                while (rs.next()) {
+                    leaderboardList.add(new LeaderboardTable(rs.getString("username"),
+                            rs.getString("date"), rs.getString("calSum")));
+                }
+            } catch (SQLException e) {
+                while (e != null) {
+                    System.err.println(e.getMessage());
+                    System.err.println(e.getSQLState());
+                    System.err.println(e.getErrorCode());
+                    e = e.getNextException();
+
+                }
+            }
+        });
+        //Overall by Year
+        leader_squat_year.setOnAction(event -> {
+            try {
+                String selectSQL = "SELECT username, date, sum(calories) as calSum" +
+                        "    FROM ExerciseLog" +
+                        "    WHERE datediff(date, current_date()) <= 365 AND exercise = 'Squat'" +
+                        "    GROUP by username, date" +
+                        "    ORDER by calSum desc;";
+                PreparedStatement preparedStatement = connect.prepareStatement(selectSQL);
+                ResultSet rs = preparedStatement.executeQuery();
+                leaderboardList.removeAll(leaderboardList);
+
+                while (rs.next()) {
+                    leaderboardList.add(new LeaderboardTable(rs.getString("username"),
+                            rs.getString("date"), rs.getString("calSum")));
+                }
+            } catch (SQLException e) {
+                while (e != null) {
+                    System.err.println(e.getMessage());
+                    System.err.println(e.getSQLState());
+                    System.err.println(e.getErrorCode());
+                    e = e.getNextException();
+
+                }
+            }
+        });
+
+        username_col.setCellValueFactory(new PropertyValueFactory<>("username"));
+        exercise_col.setCellValueFactory(new PropertyValueFactory<>("exercise"));
+        weight_col.setCellValueFactory(new PropertyValueFactory<>("weight"));
+
+        leaderboardTable.setItems(leaderboardList);
+    }
+
+    public void leaderBenchHandler(ActionEvent actionEvent) {
+
+        leader_bench_week.setOnAction(event -> {
+            try {
+                String selectSQL = "SELECT username, date, sum(calories) as calSum" +
+                        "    FROM ExerciseLog" +
+                        "    WHERE datediff(date, current_date()) <= 7 AND exercise = 'Bench Press'" +
+                        "    GROUP by username, date" +
+                        "    ORDER by calSum desc;";
+                PreparedStatement preparedStatement = connect.prepareStatement(selectSQL);
+                ResultSet rs = preparedStatement.executeQuery();
+                leaderboardList.removeAll(leaderboardList);
+
+                while (rs.next()) {
+                    leaderboardList.add(new LeaderboardTable(rs.getString("username"),
+                            rs.getString("date"), rs.getString("calSum")));
+                }
+            } catch (SQLException e) {
+                while (e != null) {
+                    System.err.println(e.getMessage());
+                    System.err.println(e.getSQLState());
+                    System.err.println(e.getErrorCode());
+                    e = e.getNextException();
+
+                }
+            }
+        });
+        //Overall by month
+        leader_bench_month.setOnAction(event -> {
+            try {
+                String selectSQL = "SELECT username, date, sum(calories) as calSum" +
+                        "    FROM ExerciseLog" +
+                        "    WHERE datediff(date, current_date()) <= 30 AND exercise = 'Bench Press'" +
+                        "    GROUP by username, date" +
+                        "    ORDER by calSum desc;";
+                PreparedStatement preparedStatement = connect.prepareStatement(selectSQL);
+                ResultSet rs = preparedStatement.executeQuery();
+                leaderboardList.removeAll(leaderboardList);
+
+                while (rs.next()) {
+                    leaderboardList.add(new LeaderboardTable(rs.getString("username"),
+                            rs.getString("date"), rs.getString("calSum")));
+                }
+            } catch (SQLException e) {
+                while (e != null) {
+                    System.err.println(e.getMessage());
+                    System.err.println(e.getSQLState());
+                    System.err.println(e.getErrorCode());
+                    e = e.getNextException();
+
+                }
+            }
+        });
+        //Overall by Year
+        leader_bench_year.setOnAction(event -> {
+            try {
+                String selectSQL = "SELECT username, date, sum(calories) as calSum" +
+                        "    FROM ExerciseLog" +
+                        "    WHERE datediff(date, current_date()) <= 365 AND exercise = 'Bench Press'" +
+                        "    GROUP by username, date" +
+                        "    ORDER by calSum desc;";
+                PreparedStatement preparedStatement = connect.prepareStatement(selectSQL);
+                ResultSet rs = preparedStatement.executeQuery();
+                leaderboardList.removeAll(leaderboardList);
+
+                while (rs.next()) {
+                    leaderboardList.add(new LeaderboardTable(rs.getString("username"),
+                            rs.getString("date"), rs.getString("calSum")));
+                }
+            } catch (SQLException e) {
+                while (e != null) {
+                    System.err.println(e.getMessage());
+                    System.err.println(e.getSQLState());
+                    System.err.println(e.getErrorCode());
+                    e = e.getNextException();
+
+                }
+            }
+        });
+
+        username_col.setCellValueFactory(new PropertyValueFactory<>("username"));
+        exercise_col.setCellValueFactory(new PropertyValueFactory<>("exercise"));
+        weight_col.setCellValueFactory(new PropertyValueFactory<>("weight"));
+
+        leaderboardTable.setItems(leaderboardList);
+    }
+
+    public void leaderDeadHandler(ActionEvent actionEvent) {
+
+        leader_dead_week.setOnAction(event -> {
+            try {
+                String selectSQL = "SELECT username, date, sum(calories) as calSum" +
+                        "    FROM ExerciseLog" +
+                        "    WHERE datediff(date, current_date()) <= 7 AND exercise = 'Deadlift'" +
+                        "    GROUP by username, date" +
+                        "    ORDER by calSum desc;";
+                PreparedStatement preparedStatement = connect.prepareStatement(selectSQL);
+                ResultSet rs = preparedStatement.executeQuery();
+                leaderboardList.removeAll(leaderboardList);
+
+                while (rs.next()) {
+                    leaderboardList.add(new LeaderboardTable(rs.getString("username"),
+                            rs.getString("date"), rs.getString("calSum")));
+                }
+            } catch (SQLException e) {
+                while (e != null) {
+                    System.err.println(e.getMessage());
+                    System.err.println(e.getSQLState());
+                    System.err.println(e.getErrorCode());
+                    e = e.getNextException();
+
+                }
+            }
+        });
+        //Overall by month
+        leader_dead_month.setOnAction(event -> {
+            try {
+                String selectSQL = "SELECT username, date, sum(calories) as calSum" +
+                        "    FROM ExerciseLog" +
+                        "    WHERE datediff(date, current_date()) <= 30 AND exercise = 'Deadlift'" +
+                        "    GROUP by username, date" +
+                        "    ORDER by calSum desc;";
+                PreparedStatement preparedStatement = connect.prepareStatement(selectSQL);
+                ResultSet rs = preparedStatement.executeQuery();
+                leaderboardList.removeAll(leaderboardList);
+
+                while (rs.next()) {
+                    leaderboardList.add(new LeaderboardTable(rs.getString("username"),
+                            rs.getString("date"), rs.getString("calSum")));
+                }
+            } catch (SQLException e) {
+                while (e != null) {
+                    System.err.println(e.getMessage());
+                    System.err.println(e.getSQLState());
+                    System.err.println(e.getErrorCode());
+                    e = e.getNextException();
+
+                }
+            }
+        });
+        //Overall by Year
+        leader_dead_year.setOnAction(event -> {
+            try {
+                String selectSQL = "SELECT username, date, sum(calories) as calSum" +
+                        "    FROM ExerciseLog" +
+                        "    WHERE datediff(date, current_date()) <= 365 AND exercise = 'Deadlift'" +
+                        "    GROUP by username, date" +
+                        "    ORDER by calSum desc;";
+                PreparedStatement preparedStatement = connect.prepareStatement(selectSQL);
+                ResultSet rs = preparedStatement.executeQuery();
+                leaderboardList.removeAll(leaderboardList);
+
+                while (rs.next()) {
+                    leaderboardList.add(new LeaderboardTable(rs.getString("username"),
+                            rs.getString("date"), rs.getString("calSum")));
+                }
+            } catch (SQLException e) {
+                while (e != null) {
+                    System.err.println(e.getMessage());
+                    System.err.println(e.getSQLState());
+                    System.err.println(e.getErrorCode());
+                    e = e.getNextException();
+
+                }
+            }
+        });
+
+        username_col.setCellValueFactory(new PropertyValueFactory<>("username"));
+        exercise_col.setCellValueFactory(new PropertyValueFactory<>("exercise"));
+        weight_col.setCellValueFactory(new PropertyValueFactory<>("weight"));
+
+        leaderboardTable.setItems(leaderboardList);
+    }
+
+    public void leaderCalHandler(ActionEvent actionEvent) {
+
+        leader_cal_week.setOnAction(event -> {
             try {
                 String selectSQL = "SELECT username, date, sum(calories) as calSum" +
                         "    FROM ExerciseLog" +
@@ -277,8 +638,8 @@ public class workoutController implements Initializable {
                 }
             }
         });
-
-        leader_overall_month.setOnAction(event -> {
+        //Overall by month
+        leader_cal_month.setOnAction(event -> {
             try {
                 String selectSQL = "SELECT username, date, sum(calories) as calSum" +
                         "    FROM ExerciseLog" +
@@ -303,8 +664,8 @@ public class workoutController implements Initializable {
                 }
             }
         });
-
-        leader_overall_year.setOnAction(event -> {
+        //Overall by Year
+        leader_cal_year.setOnAction(event -> {
             try {
                 String selectSQL = "SELECT username, date, sum(calories) as calSum" +
                         "    FROM ExerciseLog" +

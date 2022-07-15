@@ -116,32 +116,32 @@
                                         <MenuItem fx:id="leader_overall_year" mnemonicParsing="false" text="Year" />
                                     </items>
                                 </Menu>
-                                <Menu fx:id="leader_squat" mnemonicParsing="false" text="Squat ">
+                                <Menu fx:id="leader_squat" mnemonicParsing="false" onAction="#leaderSquatHandler"  text="Squat ">
                                     <items>
-                                        <MenuItem mnemonicParsing="false" text="Week" />
-                                        <MenuItem mnemonicParsing="false" text="Month" />
-                                        <MenuItem mnemonicParsing="false" text="Year" />
+                                        <MenuItem fx:id="leader_squat_week" mnemonicParsing="false" text="Week" />
+                                        <MenuItem fx:id="leader_squat_month" mnemonicParsing="false" text="Month" />
+                                        <MenuItem fx:id="leader_squat_year" mnemonicParsing="false" text="Year" />
                                     </items>
                                 </Menu>
-                                <Menu fx:id="leader_bench" mnemonicParsing="false" text="Bench">
+                                <Menu fx:id="leader_bench" mnemonicParsing="false" onAction="#leaderBenchHandler" text="Bench">
                                     <items>
-                                        <MenuItem mnemonicParsing="false" text="Week" />
-                                        <MenuItem mnemonicParsing="false" text="Month" />
-                                        <MenuItem mnemonicParsing="false" text="Year" />
+                                        <MenuItem fx:id="leader_bench_week"  mnemonicParsing="false" text="Week" />
+                                        <MenuItem fx:id="leader_bench_month" mnemonicParsing="false" text="Month" />
+                                        <MenuItem fx:id="leader_bench_year"  mnemonicParsing="false" text="Year" />
                                     </items>
                                 </Menu>
-                                <Menu fx:id="leader_dead" mnemonicParsing="false" text="Dead Lift">
+                                <Menu fx:id="leader_dead" mnemonicParsing="false" onAction="#leaderDeadHandler" text="Dead Lift">
                                     <items>
-                                        <MenuItem mnemonicParsing="false" text="Week" />
-                                        <MenuItem mnemonicParsing="false" text="Month" />
-                                        <MenuItem mnemonicParsing="false" text="Year" />
+                                        <MenuItem fx:id="leader_dead_week"  mnemonicParsing="false" text="Week" />
+                                        <MenuItem fx:id="leader_dead_month" mnemonicParsing="false" text="Month" />
+                                        <MenuItem fx:id="leader_dead_year"  mnemonicParsing="false" text="Year" />
                                     </items>
                                 </Menu>
-                                <Menu fx:id="leader_calories" mnemonicParsing="false" text="Calories Lost">
+                                <Menu fx:id="leader_calories" mnemonicParsing="false" onAction="#leaderCalHandler" text="Calories Lost">
                                     <items>
-                                        <MenuItem mnemonicParsing="false" text="Week" />
-                                        <MenuItem mnemonicParsing="false" text="Month" />
-                                        <MenuItem mnemonicParsing="false" text="Year" />
+                                        <MenuItem fx:id="leader_cal_week" mnemonicParsing="false" text="Week" />
+                                        <MenuItem fx:id="leader_cal_month" mnemonicParsing="false" text="Month" />
+                                        <MenuItem fx:id="leader_cal_year" mnemonicParsing="false" text="Year" />
                                     </items>
                                 </Menu>
                             </menus>
