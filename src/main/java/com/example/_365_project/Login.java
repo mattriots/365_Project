@@ -90,7 +90,7 @@ public class Login {
         else if(signUpPass.getText().isEmpty() || signUpConfirm.getText().isEmpty() || signUpUser.getText().isEmpty()){
             wrongSignUp.setText("Please fill in all fields");
         }
-        else if(!MySQL.checkUser(connect, signUpUser.getText())){
+        else if(MySQL.checkUser(connect, signUpUser.getText())){
             wrongSignUp.setText("Username already in use");
         }
         else {

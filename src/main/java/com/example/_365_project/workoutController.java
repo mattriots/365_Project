@@ -4,20 +4,14 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.chart.LineChart;
 import javafx.scene.control.ListView;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
 
-import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -35,6 +29,24 @@ import java.util.prefs.Preferences;
 public class workoutController implements Initializable{
 
     public static Connection connect = MySQL.setConnect();
+
+    public Menu leader_overall;
+    public MenuItem leader_overall_week;
+    public MenuItem leader_overall_month;
+    public MenuItem leader_overall_year;
+    public MenuItem leader_squat_week;
+    public MenuItem leader_squat_month;
+    public MenuItem leader_squat_year;
+    public MenuItem leader_bench_week;
+    public MenuItem leader_bench_month;
+    public MenuItem leader_bench_year;
+    public MenuItem leader_dead_week;
+    public MenuItem leader_dead_month;
+    public MenuItem leader_dead_year;
+    public MenuItem leader_cal_week;
+    public MenuItem leader_cal_month;
+    public MenuItem leader_cal_year;
+
 
     @FXML
     private TableView<ModelTable> exerciseTable;
@@ -88,17 +100,18 @@ public class workoutController implements Initializable{
     @FXML
     private Button login;
 
+
     @FXML
     private PasswordField password;
 
     @FXML
-    private Button returnBtn;
-
-    @FXML
-    private Button deleteButton;
+    private Button updateBtn;
 
     @FXML
     private Button tableBtn;
+
+    @FXML
+    private Button deleteWorkoutButton;
 
     @FXML
     private TextField username;
@@ -123,6 +136,18 @@ public class workoutController implements Initializable{
     @FXML
     private Button chartButton;
 
+    @FXML
+    private TextField weightUpdateBox;
+
+    @FXML
+    private TextField ageUpdateBox;
+
+    @FXML
+    private Label weightStatLabel;
+
+    @FXML
+    private Label ageStatLabel;
+
     private String[] workout = {"Bench Press", "Squat", "Deadlift", "Dumbell Curl", "Barbell Curl",
             "Push-ups", "Pull-ups"};
 
@@ -134,17 +159,57 @@ public class workoutController implements Initializable{
     }
 
     @FXML
-    void returnBtnHandler(ActionEvent event) throws IOException {
-        Stage stage;
-        Parent root;
-        stage = new Stage();
-        root = FXMLLoader.load(getClass().getResource("update_info.fxml"));
-        stage.setScene(new Scene(root));
-        stage.setTitle("Update User Info");
-        stage.initModality((Modality.APPLICATION_MODAL));
-        stage.initOwner(returnBtn.getScene().getWindow());
-        stage.showAndWait();
+    void updateBtnHandler(ActionEvent event) {
+        try {
 
+            // if only age updated
+            if((weightUpdateBox.getText().isBlank() || weightUpdateBox.getText().isBlank())
+                    && isInteger(ageUpdateBox.getText())){
+                String selectWeight = "UPDATE UserInfo SET age = ? WHERE username = ?";
+                PreparedStatement updateStats = connect.prepareStatement(selectWeight);
+                updateStats.setString(1, ageUpdateBox.getText());
+                updateStats.setString(2, Preferences.userRoot().get("username", "profile"));
+                updateStats.executeUpdate();
+
+                ageStatLabel.setText(ageUpdateBox.getText());
+            }
+
+            // if only weight updated
+            if((ageUpdateBox.getText().isBlank() || ageUpdateBox.getText().isBlank())
+                    && isInteger(weightUpdateBox.getText())){
+                String selectWeight = "UPDATE UserInfo SET weight = ? WHERE username = ?";
+                PreparedStatement updateStats = connect.prepareStatement(selectWeight);
+                updateStats.setString(1, weightUpdateBox.getText());
+                updateStats.setString(2, Preferences.userRoot().get("username", "profile"));
+                updateStats.executeUpdate();
+
+                weightStatLabel.setText(weightUpdateBox.getText());
+            }
+
+            // if both age and weight updated
+            if(isInteger(ageUpdateBox.getText()) && isInteger(weightUpdateBox.getText())) {
+
+                String selectWeight = "UPDATE UserInfo SET age = ?, weight = ? WHERE username = ?";
+                PreparedStatement updateStats = connect.prepareStatement(selectWeight);
+                updateStats.setString(1, ageUpdateBox.getText());
+                updateStats.setString(2, weightUpdateBox.getText());
+                updateStats.setString(3, Preferences.userRoot().get("username", "profile"));
+                updateStats.executeUpdate();
+
+                ageStatLabel.setText(ageUpdateBox.getText());
+                weightStatLabel.setText(weightUpdateBox.getText());
+            }
+            ageUpdateBox.setText("");
+            weightUpdateBox.setText("");
+        }
+        catch (SQLException e){
+            while(e != null){
+                System.err.println(e.getMessage());
+                System.err.println(e.getSQLState());
+                System.err.println(e.getErrorCode());
+                e = e.getNextException();
+            }
+        }
     }
 
     @FXML
@@ -166,6 +231,7 @@ public class workoutController implements Initializable{
 
         XYChart.Series series = new XYChart.Series();
         series.setName("Weight");
+
         try {
             String selectWeight = "SELECT date, weight FROM ExerciseLog WHERE username = ? AND exercise = ?";
             PreparedStatement ps = connect.prepareStatement(selectWeight);
@@ -234,18 +300,22 @@ public class workoutController implements Initializable{
         exerciseTable.setItems(list);
     }
 
-    @FXML
-    void deleteButtonHandler(ActionEvent event) {
-        exerciseTable.getItems().removeAll(exerciseTable.getSelectionModel().getSelectedItem());
-    }
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         profileText.setText("Profile: " + Preferences.userRoot().get("username", "profile"));
         workoutChoicebox.getItems().addAll(workout);
         chartChoicebox.getItems().addAll(workout);
 
+
         try {
+            String newSelect = "SELECT * FROM UserInfo WHERE username = ?";
+            PreparedStatement newStatement = connect.prepareStatement(newSelect);
+            newStatement.setString(1, Preferences.userRoot().get("username", "profile"));
+            ResultSet newRs = newStatement.executeQuery();
+            newRs.next();
+            ageStatLabel.setText(newRs.getString("age"));
+            weightStatLabel.setText(newRs.getString("weight"));
+
             String selectSQL = "SELECT username, exercise, weight FROM ExerciseLog ORDER BY exercise ASC, weight DESC";
             PreparedStatement preparedStatement = connect.prepareStatement(selectSQL);
             ResultSet rs = preparedStatement.executeQuery();
@@ -270,6 +340,479 @@ public class workoutController implements Initializable{
 
         leaderboardTable.setItems(leaderboardList);
 
+    }
+
+    public static boolean isInteger(String strNum) {
+        if (strNum == null) {
+            return false;
+        }
+        try {
+            double i = Integer.parseInt(strNum);
+        } catch (NumberFormatException nfe) {
+            return false;
+        }
+        return true;
+    }
+
+    @FXML
+    void deleteButtonHandler(ActionEvent event) {
+        try {
+            String deleteExercise = "DELETE FROM ExerciseLog WHERE username = ? AND date = ? AND exercise = ?";
+            PreparedStatement ps = connect.prepareStatement(deleteExercise);
+            ModelTable selectedrow = exerciseTable.getSelectionModel().getSelectedItem();
+            ps.setString(1, Preferences.userRoot().get("username", "workout"));
+            ps.setString(2, selectedrow.getDate());
+            ps.setString(3, selectedrow.getExercise());
+            ps.executeUpdate();
+            exerciseTable.getItems().removeAll(exerciseTable.getSelectionModel().getSelectedItem());
+
+        }
+        catch (SQLException e){
+            while(e != null){
+                System.err.println(e.getMessage());
+                System.err.println(e.getSQLState());
+                System.err.println(e.getErrorCode());
+                e = e.getNextException();
+            }
+        }
+
+    }
+
+    public void leaderOverallHandler(ActionEvent actionEvent) {
+        weight_col.setText("Weight");
+
+        //Overall by week
+        leader_overall_week.setOnAction(event -> {
+            try {
+                String selectSQL = "SELECT username, date, AVG(calories) as calAvg" +
+                        "    FROM ExerciseLog" +
+                        "    WHERE datediff(date, current_date()) <= 7" +
+                        "    GROUP by username, date" +
+                        "    ORDER by calAvg desc;";
+                PreparedStatement preparedStatement = connect.prepareStatement(selectSQL);
+                ResultSet rs = preparedStatement.executeQuery();
+                leaderboardList.removeAll(leaderboardList);
+
+                while (rs.next()) {
+                    leaderboardList.add(new LeaderboardTable(rs.getString("username"),
+                            rs.getString("date"), rs.getString("calAvg")));
+                }
+            } catch (SQLException e) {
+                while (e != null) {
+                    System.err.println(e.getMessage());
+                    System.err.println(e.getSQLState());
+                    System.err.println(e.getErrorCode());
+                    e = e.getNextException();
+
+                }
+            }
+        });
+        //Overall by month
+        leader_overall_month.setOnAction(event -> {
+            try {
+                String selectSQL = "SELECT username, date, AVG(calories) as calAvg" +
+                        "    FROM ExerciseLog" +
+                        "    WHERE datediff(date, current_date()) <= 30" +
+                        "    GROUP by username, date" +
+                        "    ORDER by calAvg desc;";
+                PreparedStatement preparedStatement = connect.prepareStatement(selectSQL);
+                ResultSet rs = preparedStatement.executeQuery();
+                leaderboardList.removeAll(leaderboardList);
+
+                while (rs.next()) {
+                    leaderboardList.add(new LeaderboardTable(rs.getString("username"),
+                            rs.getString("date"), rs.getString("calAvg")));
+                }
+            } catch (SQLException e) {
+                while (e != null) {
+                    System.err.println(e.getMessage());
+                    System.err.println(e.getSQLState());
+                    System.err.println(e.getErrorCode());
+                    e = e.getNextException();
+
+                }
+            }
+        });
+        //Overall by Year
+        leader_overall_year.setOnAction(event -> {
+            try {
+                String selectSQL = "SELECT username, date, AVG(calories) as calAvg" +
+                        "    FROM ExerciseLog" +
+                        "    WHERE datediff(date, current_date()) <= 365" +
+                        "    GROUP by username, date" +
+                        "    ORDER by calAvg desc;";
+                PreparedStatement preparedStatement = connect.prepareStatement(selectSQL);
+                ResultSet rs = preparedStatement.executeQuery();
+                leaderboardList.removeAll(leaderboardList);
+
+                while (rs.next()) {
+                    leaderboardList.add(new LeaderboardTable(rs.getString("username"),
+                            rs.getString("date"), rs.getString("calAvg")));
+                }
+            } catch (SQLException e) {
+                while (e != null) {
+                    System.err.println(e.getMessage());
+                    System.err.println(e.getSQLState());
+                    System.err.println(e.getErrorCode());
+                    e = e.getNextException();
+
+                }
+            }
+        });
+
+        username_col.setCellValueFactory(new PropertyValueFactory<>("username"));
+        exercise_col.setCellValueFactory(new PropertyValueFactory<>("exercise"));
+        weight_col.setCellValueFactory(new PropertyValueFactory<>("weight"));
+
+        leaderboardTable.setItems(leaderboardList);
+    }
+
+    public void leaderSquatHandler(ActionEvent actionEvent) {
+        weight_col.setText("Weight");
+        leader_squat_week.setOnAction(event -> {
+            try {
+                String selectSQL = "SELECT username, date, sum(calories) as calSum" +
+                        "    FROM ExerciseLog" +
+                        "    WHERE datediff(date, current_date()) <= 7 AND exercise = 'Squat'" +
+                        "    GROUP by username, date" +
+                        "    ORDER by calSum desc;";
+                PreparedStatement preparedStatement = connect.prepareStatement(selectSQL);
+                ResultSet rs = preparedStatement.executeQuery();
+                leaderboardList.removeAll(leaderboardList);
+
+                while (rs.next()) {
+                    leaderboardList.add(new LeaderboardTable(rs.getString("username"),
+                            rs.getString("date"), rs.getString("calSum")));
+                }
+            } catch (SQLException e) {
+                while (e != null) {
+                    System.err.println(e.getMessage());
+                    System.err.println(e.getSQLState());
+                    System.err.println(e.getErrorCode());
+                    e = e.getNextException();
+
+                }
+            }
+        });
+        //Overall by month
+        leader_squat_month.setOnAction(event -> {
+            try {
+                String selectSQL = "SELECT username, date, sum(calories) as calSum" +
+                        "    FROM ExerciseLog" +
+                        "    WHERE datediff(date, current_date()) <= 30 AND exercise = 'Squat'" +
+                        "    GROUP by username, date" +
+                        "    ORDER by calSum desc;";
+                PreparedStatement preparedStatement = connect.prepareStatement(selectSQL);
+                ResultSet rs = preparedStatement.executeQuery();
+                leaderboardList.removeAll(leaderboardList);
+
+                while (rs.next()) {
+                    leaderboardList.add(new LeaderboardTable(rs.getString("username"),
+                            rs.getString("date"), rs.getString("calSum")));
+                }
+            } catch (SQLException e) {
+                while (e != null) {
+                    System.err.println(e.getMessage());
+                    System.err.println(e.getSQLState());
+                    System.err.println(e.getErrorCode());
+                    e = e.getNextException();
+
+                }
+            }
+        });
+        //Overall by Year
+        leader_squat_year.setOnAction(event -> {
+            try {
+                String selectSQL = "SELECT username, date, sum(calories) as calSum" +
+                        "    FROM ExerciseLog" +
+                        "    WHERE datediff(date, current_date()) <= 365 AND exercise = 'Squat'" +
+                        "    GROUP by username, date" +
+                        "    ORDER by calSum desc;";
+                PreparedStatement preparedStatement = connect.prepareStatement(selectSQL);
+                ResultSet rs = preparedStatement.executeQuery();
+                leaderboardList.removeAll(leaderboardList);
+
+                while (rs.next()) {
+                    leaderboardList.add(new LeaderboardTable(rs.getString("username"),
+                            rs.getString("date"), rs.getString("calSum")));
+                }
+            } catch (SQLException e) {
+                while (e != null) {
+                    System.err.println(e.getMessage());
+                    System.err.println(e.getSQLState());
+                    System.err.println(e.getErrorCode());
+                    e = e.getNextException();
+
+                }
+            }
+        });
+
+        username_col.setCellValueFactory(new PropertyValueFactory<>("username"));
+        exercise_col.setCellValueFactory(new PropertyValueFactory<>("exercise"));
+        weight_col.setCellValueFactory(new PropertyValueFactory<>("weight"));
+
+        leaderboardTable.setItems(leaderboardList);
+    }
+
+    public void leaderBenchHandler(ActionEvent actionEvent) {
+        weight_col.setText("Weight");
+        leader_bench_week.setOnAction(event -> {
+            try {
+                String selectSQL = "SELECT username, date, sum(calories) as calSum" +
+                        "    FROM ExerciseLog" +
+                        "    WHERE datediff(date, current_date()) <= 7 AND exercise = 'Bench Press'" +
+                        "    GROUP by username, date" +
+                        "    ORDER by calSum desc;";
+                PreparedStatement preparedStatement = connect.prepareStatement(selectSQL);
+                ResultSet rs = preparedStatement.executeQuery();
+                leaderboardList.removeAll(leaderboardList);
+
+                while (rs.next()) {
+                    leaderboardList.add(new LeaderboardTable(rs.getString("username"),
+                            rs.getString("date"), rs.getString("calSum")));
+                }
+            } catch (SQLException e) {
+                while (e != null) {
+                    System.err.println(e.getMessage());
+                    System.err.println(e.getSQLState());
+                    System.err.println(e.getErrorCode());
+                    e = e.getNextException();
+
+                }
+            }
+        });
+        //Overall by month
+        leader_bench_month.setOnAction(event -> {
+            try {
+                String selectSQL = "SELECT username, date, sum(calories) as calSum" +
+                        "    FROM ExerciseLog" +
+                        "    WHERE datediff(date, current_date()) <= 30 AND exercise = 'Bench Press'" +
+                        "    GROUP by username, date" +
+                        "    ORDER by calSum desc;";
+                PreparedStatement preparedStatement = connect.prepareStatement(selectSQL);
+                ResultSet rs = preparedStatement.executeQuery();
+                leaderboardList.removeAll(leaderboardList);
+
+                while (rs.next()) {
+                    leaderboardList.add(new LeaderboardTable(rs.getString("username"),
+                            rs.getString("date"), rs.getString("calSum")));
+                }
+            } catch (SQLException e) {
+                while (e != null) {
+                    System.err.println(e.getMessage());
+                    System.err.println(e.getSQLState());
+                    System.err.println(e.getErrorCode());
+                    e = e.getNextException();
+
+                }
+            }
+        });
+        //Overall by Year
+        leader_bench_year.setOnAction(event -> {
+            try {
+                String selectSQL = "SELECT username, date, sum(calories) as calSum" +
+                        "    FROM ExerciseLog" +
+                        "    WHERE datediff(date, current_date()) <= 365 AND exercise = 'Bench Press'" +
+                        "    GROUP by username, date" +
+                        "    ORDER by calSum desc;";
+                PreparedStatement preparedStatement = connect.prepareStatement(selectSQL);
+                ResultSet rs = preparedStatement.executeQuery();
+                leaderboardList.removeAll(leaderboardList);
+
+                while (rs.next()) {
+                    leaderboardList.add(new LeaderboardTable(rs.getString("username"),
+                            rs.getString("date"), rs.getString("calSum")));
+                }
+            } catch (SQLException e) {
+                while (e != null) {
+                    System.err.println(e.getMessage());
+                    System.err.println(e.getSQLState());
+                    System.err.println(e.getErrorCode());
+                    e = e.getNextException();
+
+                }
+            }
+        });
+
+        username_col.setCellValueFactory(new PropertyValueFactory<>("username"));
+        exercise_col.setCellValueFactory(new PropertyValueFactory<>("exercise"));
+        weight_col.setCellValueFactory(new PropertyValueFactory<>("weight"));
+
+        leaderboardTable.setItems(leaderboardList);
+    }
+
+    public void leaderDeadHandler(ActionEvent actionEvent) {
+        weight_col.setText("Weight");
+        leader_dead_week.setOnAction(event -> {
+            try {
+                String selectSQL = "SELECT username, date, sum(calories) as calSum" +
+                        "    FROM ExerciseLog" +
+                        "    WHERE datediff(date, current_date()) <= 7 AND exercise = 'Deadlift'" +
+                        "    GROUP by username, date" +
+                        "    ORDER by calSum desc;";
+                PreparedStatement preparedStatement = connect.prepareStatement(selectSQL);
+                ResultSet rs = preparedStatement.executeQuery();
+                leaderboardList.removeAll(leaderboardList);
+
+                while (rs.next()) {
+                    leaderboardList.add(new LeaderboardTable(rs.getString("username"),
+                            rs.getString("date"), rs.getString("calSum")));
+                }
+            } catch (SQLException e) {
+                while (e != null) {
+                    System.err.println(e.getMessage());
+                    System.err.println(e.getSQLState());
+                    System.err.println(e.getErrorCode());
+                    e = e.getNextException();
+
+                }
+            }
+        });
+        //Overall by month
+        leader_dead_month.setOnAction(event -> {
+            try {
+                String selectSQL = "SELECT username, date, sum(calories) as calSum" +
+                        "    FROM ExerciseLog" +
+                        "    WHERE datediff(date, current_date()) <= 30 AND exercise = 'Deadlift'" +
+                        "    GROUP by username, date" +
+                        "    ORDER by calSum desc;";
+                PreparedStatement preparedStatement = connect.prepareStatement(selectSQL);
+                ResultSet rs = preparedStatement.executeQuery();
+                leaderboardList.removeAll(leaderboardList);
+
+                while (rs.next()) {
+                    leaderboardList.add(new LeaderboardTable(rs.getString("username"),
+                            rs.getString("date"), rs.getString("calSum")));
+                }
+            } catch (SQLException e) {
+                while (e != null) {
+                    System.err.println(e.getMessage());
+                    System.err.println(e.getSQLState());
+                    System.err.println(e.getErrorCode());
+                    e = e.getNextException();
+
+                }
+            }
+        });
+        //Overall by Year
+        leader_dead_year.setOnAction(event -> {
+            try {
+                String selectSQL = "SELECT username, date, sum(calories) as calSum" +
+                        "    FROM ExerciseLog" +
+                        "    WHERE datediff(date, current_date()) <= 365 AND exercise = 'Deadlift'" +
+                        "    GROUP by username, date" +
+                        "    ORDER by calSum desc;";
+                PreparedStatement preparedStatement = connect.prepareStatement(selectSQL);
+                ResultSet rs = preparedStatement.executeQuery();
+                leaderboardList.removeAll(leaderboardList);
+
+                while (rs.next()) {
+                    leaderboardList.add(new LeaderboardTable(rs.getString("username"),
+                            rs.getString("date"), rs.getString("calSum")));
+                }
+            } catch (SQLException e) {
+                while (e != null) {
+                    System.err.println(e.getMessage());
+                    System.err.println(e.getSQLState());
+                    System.err.println(e.getErrorCode());
+                    e = e.getNextException();
+
+                }
+            }
+        });
+
+        username_col.setCellValueFactory(new PropertyValueFactory<>("username"));
+        exercise_col.setCellValueFactory(new PropertyValueFactory<>("exercise"));
+        weight_col.setCellValueFactory(new PropertyValueFactory<>("weight"));
+
+        leaderboardTable.setItems(leaderboardList);
+    }
+
+    public void leaderCalHandler(ActionEvent actionEvent) {
+        weight_col.setText("Calories");
+        leader_cal_week.setOnAction(event -> {
+            try {
+                String selectSQL = "SELECT username, date, sum(calories) as calSum" +
+                        "    FROM ExerciseLog" +
+                        "    WHERE datediff(date, current_date()) <= 7" +
+                        "    GROUP by username, date" +
+                        "    ORDER by calSum desc;";
+                PreparedStatement preparedStatement = connect.prepareStatement(selectSQL);
+                ResultSet rs = preparedStatement.executeQuery();
+                leaderboardList.removeAll(leaderboardList);
+
+                while (rs.next()) {
+                    leaderboardList.add(new LeaderboardTable(rs.getString("username"),
+                            rs.getString("date"), rs.getString("calSum")));
+                }
+            } catch (SQLException e) {
+                while (e != null) {
+                    System.err.println(e.getMessage());
+                    System.err.println(e.getSQLState());
+                    System.err.println(e.getErrorCode());
+                    e = e.getNextException();
+
+                }
+            }
+        });
+        //Overall by month
+        leader_cal_month.setOnAction(event -> {
+            try {
+                String selectSQL = "SELECT username, date, sum(calories) as calSum" +
+                        "    FROM ExerciseLog" +
+                        "    WHERE datediff(date, current_date()) <= 30" +
+                        "    GROUP by username, date" +
+                        "    ORDER by calSum desc;";
+                PreparedStatement preparedStatement = connect.prepareStatement(selectSQL);
+                ResultSet rs = preparedStatement.executeQuery();
+                leaderboardList.removeAll(leaderboardList);
+
+                while (rs.next()) {
+                    leaderboardList.add(new LeaderboardTable(rs.getString("username"),
+                            rs.getString("date"), rs.getString("calSum")));
+                }
+            } catch (SQLException e) {
+                while (e != null) {
+                    System.err.println(e.getMessage());
+                    System.err.println(e.getSQLState());
+                    System.err.println(e.getErrorCode());
+                    e = e.getNextException();
+
+                }
+            }
+        });
+        //Overall by Year
+        leader_cal_year.setOnAction(event -> {
+            try {
+                String selectSQL = "SELECT username, date, sum(calories) as calSum" +
+                        "    FROM ExerciseLog" +
+                        "    WHERE datediff(date, current_date()) <= 365" +
+                        "    GROUP by username, date" +
+                        "    ORDER by calSum desc;";
+                PreparedStatement preparedStatement = connect.prepareStatement(selectSQL);
+                ResultSet rs = preparedStatement.executeQuery();
+                leaderboardList.removeAll(leaderboardList);
+
+                while (rs.next()) {
+                    leaderboardList.add(new LeaderboardTable(rs.getString("username"),
+                            rs.getString("date"), rs.getString("calSum")));
+                }
+            } catch (SQLException e) {
+                while (e != null) {
+                    System.err.println(e.getMessage());
+                    System.err.println(e.getSQLState());
+                    System.err.println(e.getErrorCode());
+                    e = e.getNextException();
+
+                }
+            }
+        });
+
+        username_col.setCellValueFactory(new PropertyValueFactory<>("username"));
+        exercise_col.setCellValueFactory(new PropertyValueFactory<>("exercise"));
+        weight_col.setCellValueFactory(new PropertyValueFactory<>("weight"));
+
+        leaderboardTable.setItems(leaderboardList);
     }
 
 

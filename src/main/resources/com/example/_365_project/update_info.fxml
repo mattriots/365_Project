@@ -19,8 +19,8 @@
          </font>
       </Text>
       <Text layoutX="45.0" layoutY="127.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Weight:" />
-      <TextField fx:id="ageText" layoutX="94.0" layoutY="54.0" prefHeight="25.0" prefWidth="56.0" />
-      <TextField fx:id="weightText" layoutX="94.0" layoutY="110.0" prefHeight="25.0" prefWidth="56.0" />
+      <TextField fx:id="ageUpdateBox" layoutX="94.0" layoutY="54.0" prefHeight="25.0" prefWidth="56.0" />
+      <TextField fx:id="weightUpdateBox" layoutX="94.0" layoutY="110.0" prefHeight="25.0" prefWidth="56.0" />
       <Button fx:id="submitButton" layoutX="83.0" layoutY="156.0" mnemonicParsing="false" onAction="#submitButtonHandler" text="Submit Info" />
    </children>
 </Pane>

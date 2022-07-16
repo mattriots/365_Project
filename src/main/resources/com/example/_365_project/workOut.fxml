@@ -25,9 +25,9 @@
     <tabs>
         <Tab text="Profile">
             <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" styleClass="profileBackground" stylesheets="@style.css">
                     <children>
-                        <LineChart fx:id="lineChart" layoutX="204.0" layoutY="61.0" prefHeight="310.0" prefWidth="396.0" stylesheets="@../../../../java/com/example/_365_project/style.css" title="Progress Chart">
+                        <LineChart fx:id="lineChart" layoutX="204.0" layoutY="61.0" prefHeight="310.0" prefWidth="396.0" title="Progress Chart">
                             <xAxis>
                                 <CategoryAxis side="BOTTOM" />
                             </xAxis>
@@ -35,61 +35,73 @@
                                 <NumberAxis side="LEFT" />
                             </yAxis>
                         </LineChart>
-                        <Label fx:id="profileText" layoutX="52.0" layoutY="14.0" prefHeight="17.0" prefWidth="113.0" />
-                        <Label layoutX="58.0" layoutY="153.0" prefHeight="17.0" prefWidth="100.0" text="User Information">
+                        <Label fx:id="profileText" layoutX="64.0" layoutY="14.0" prefHeight="17.0" prefWidth="113.0">
                      <font>
-                        <Font name="System Bold" size="12.0" />
+                        <Font name="System Bold" size="14.0" />
                      </font></Label>
-                        <Button fx:id="returnBtn" layoutX="83.0" layoutY="324.0" mnemonicParsing="false" onAction="#returnBtnHandler" text="Update Info" />
+                        <Label alignment="CENTER" layoutX="35.0" layoutY="150.0" prefHeight="25.0" prefWidth="135.0" text="User Information">
+                            <font>
+                                <Font name="System Bold" size="16.0" />
+                            </font></Label>
+                        <Button fx:id="updateBtn" layoutX="79.0" layoutY="253.0" mnemonicParsing="false" onAction="#updateBtnHandler" text="Update" />
                         <ImageView fitHeight="98.0" fitWidth="163.0" layoutX="52.0" layoutY="43.0" pickOnBounds="true" preserveRatio="true">
                             <image>
                                 <Image url="@arnold.png" />
                             </image>
                         </ImageView>
-                  <ChoiceBox fx:id="chartChoicebox" layoutX="312.0" layoutY="31.0" onMouseClicked="#workoutChoiceHandler" prefHeight="16.0" prefWidth="107.0" />
-                  <Text layoutX="366.0" layoutY="22.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Exercise" wrappingWidth="71.47003173828125">
-                     <font>
-                        <Font name="System Bold" size="18.0" />
-                     </font>
-                  </Text>
-                  <Button fx:id="chartButton" layoutX="447.0" layoutY="30.0" mnemonicParsing="false" onAction="#submitChartHandler" text="View" />
-                  <Text layoutX="41.0" layoutY="188.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Age:" wrappingWidth="39.016937255859375" />
-                  <Text layoutX="41.0" layoutY="217.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Weight: " wrappingWidth="60.203125" />
+                        <ChoiceBox fx:id="chartChoicebox" layoutX="342.0" layoutY="30.0" onMouseClicked="#workoutChoiceHandler" prefHeight="25.0" prefWidth="119.0" />
+                        <Text layoutX="366.0" layoutY="22.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Exercise" wrappingWidth="71.47003173828125">
+                            <font>
+                                <Font name="System Bold" size="18.0" />
+                            </font>
+                        </Text>
+                        <Button fx:id="chartButton" layoutX="485.0" layoutY="30.0" mnemonicParsing="false" onAction="#submitChartHandler" text="View" />
+                        <Text layoutX="49.0" layoutY="196.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Age:" wrappingWidth="32.016937255859375" />
+                        <Text layoutX="31.0" layoutY="230.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Weight: " wrappingWidth="50.203125" />
+                        <TextField fx:id="ageUpdateBox" alignment="CENTER" layoutX="121.0" layoutY="180.0" prefHeight="26.0" prefWidth="39.0" />
+                        <TextField fx:id="weightUpdateBox" alignment="CENTER" layoutX="121.0" layoutY="212.0" prefHeight="26.0" prefWidth="39.0" />
+                        <Label fx:id="ageStatLabel" layoutX="79.0" layoutY="184.0" text="Label" />
+                        <Label fx:id="weightStatLabel" layoutX="79.0" layoutY="217.0" text="Label" />
                     </children></AnchorPane>
             </content>
         </Tab>
         <Tab text="Add Workout">
             <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" styleClass="loginBackground" stylesheets="@style.css">
                     <children>
-                        <Button fx:id="addWorkout" layoutX="254.0" layoutY="310.0" mnemonicParsing="false" onAction="#submitWorkoutHandler" text="Save Exercise" />
+                        <Button fx:id="addWorkout" layoutX="251.0" layoutY="308.0" mnemonicParsing="false" onAction="#submitWorkoutHandler" text="Save Exercise" />
                         <DatePicker fx:id="datepicker" layoutX="60.0" layoutY="69.0" />
                         <TextField fx:id="setsBox" alignment="CENTER" layoutX="222.0" layoutY="139.0" />
-                        <TextField fx:id="repsBox" alignment="CENTER" layoutX="225.0" layoutY="203.0" />
+                        <TextField fx:id="repsBox" alignment="CENTER" layoutX="221.0" layoutY="203.0" />
                         <TextField fx:id="weightBox" alignment="CENTER" layoutX="222.0" layoutY="268.0" />
-                        <Label layoutX="82.0" layoutY="25.0" text="Date of Workout">
+                        <Label layoutX="76.0" layoutY="35.0" text="Date of Workout">
                             <font>
                                 <Font name="System Bold" size="16.0" />
                             </font></Label>
-                        <Label layoutX="409.0" layoutY="25.0" prefHeight="25.0" prefWidth="74.0" text="Exercise">
+                        <Label alignment="CENTER" layoutX="409.0" layoutY="35.0" prefHeight="25.0" prefWidth="74.0" text="Exercise">
                             <font>
                                 <Font name="System Bold" size="16.0" />
                             </font></Label>
-                        <Label layoutX="286.0" layoutY="111.0" text="Sets" />
-                        <Label alignment="CENTER" layoutX="284.0" layoutY="174.0" prefHeight="22.0" prefWidth="26.0" text="Reps" />
-                        <Label alignment="CENTER" layoutX="278.0" layoutY="240.0" text="Weight" />
+                        <Label layoutX="286.0" layoutY="117.0" text="Sets" />
+                        <Label alignment="CENTER" layoutX="280.0" layoutY="176.0" prefHeight="22.0" prefWidth="36.0" text="Reps" />
+                        <Label alignment="CENTER" layoutX="278.0" layoutY="246.0" text="Weight" />
                         <ChoiceBox fx:id="workoutChoicebox" layoutX="371.0" layoutY="69.0" onMouseClicked="#workoutChoiceHandler" prefWidth="150.0" />
                         <Label fx:id="exerciseLabel" layoutX="225.0" layoutY="340.0" />
+                  <ImageView fitHeight="201.0" fitWidth="190.0" layoutX="410.0" layoutY="170.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@exercise_gif.gif" />
+                     </image>
+                  </ImageView>
                     </children>
                 </AnchorPane>
             </content>
         </Tab>
         <Tab text="View/Delete Workout">
             <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" styleClass="profileBackground" stylesheets="@style.css">
                     <children>
                         <DatePicker fx:id="table_Datepicker" layoutX="189.0" layoutY="25.0" />
-                        <TableView fx:id="exerciseTable" layoutY="59.0" prefHeight="265.0" prefWidth="600.0">
+                        <TableView fx:id="exerciseTable" layoutY="59.0" prefHeight="275.0" prefWidth="600.0">
                             <columns>
                                 <TableColumn fx:id="table_date" prefWidth="149.60003662109375" text="Date" />
                                 <TableColumn fx:id="table_exercise" prefWidth="156.79998779296875" text="Exercise" />
@@ -99,61 +111,61 @@
                             </columns>
                         </TableView>
                         <Button fx:id="tableBtn" layoutX="373.0" layoutY="25.0" mnemonicParsing="false" onAction="#submitTableHandler" prefHeight="26.0" prefWidth="55.0" text="Submit" />
-                  <Button fx:id="deleteButton" layoutX="237.0" layoutY="333.0" mnemonicParsing="false" onAction="#deleteButtonHandler" text="Delete Selected Workout" />
+                  <Button fx:id="deleteWorkoutButton" layoutX="250.0" layoutY="338.0" mnemonicParsing="false" onAction="#deleteButtonHandler" text="Delete Workout" />
                     </children>
                 </AnchorPane>
             </content>
         </Tab>
         <Tab text="Leaderboard">
             <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: #FFE133;">
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" styleClass="leaderboardBackground" stylesheets="@style.css">
                     <children>
                         <MenuBar layoutX="137.0" layoutY="14.0">
                             <menus>
-                                <Menu mnemonicParsing="false" text="Overall">
+                                <Menu fx:id="leader_overall" mnemonicParsing="false" onAction="#leaderOverallHandler" text="Overall">
                                     <items>
-                                        <MenuItem mnemonicParsing="false" text="Week" />
-                                        <MenuItem mnemonicParsing="false" text="Month" />
-                                        <MenuItem mnemonicParsing="false" text="Year" />
+                                        <MenuItem fx:id="leader_overall_week" mnemonicParsing="false" text="Week" />
+                                        <MenuItem fx:id="leader_overall_month" mnemonicParsing="false" text="Month" />
+                                        <MenuItem fx:id="leader_overall_year" mnemonicParsing="false" text="Year" />
                                     </items>
                                 </Menu>
-                                <Menu mnemonicParsing="false" text="Squat ">
+                                <Menu fx:id="leader_squat" mnemonicParsing="false" onAction="#leaderSquatHandler" text="Squat ">
                                     <items>
-                                        <MenuItem mnemonicParsing="false" text="Week" />
-                                        <MenuItem mnemonicParsing="false" text="Month" />
-                                        <MenuItem mnemonicParsing="false" text="Year" />
+                                        <MenuItem fx:id="leader_squat_week" mnemonicParsing="false" text="Week" />
+                                        <MenuItem fx:id="leader_squat_month" mnemonicParsing="false" text="Month" />
+                                        <MenuItem fx:id="leader_squat_year" mnemonicParsing="false" text="Year" />
                                     </items>
                                 </Menu>
-                                <Menu mnemonicParsing="false" text="Bench">
+                                <Menu fx:id="leader_bench" mnemonicParsing="false" onAction="#leaderBenchHandler" text="Bench">
                                     <items>
-                                        <MenuItem mnemonicParsing="false" text="Week" />
-                                        <MenuItem mnemonicParsing="false" text="Month" />
-                                        <MenuItem mnemonicParsing="false" text="Year" />
+                                        <MenuItem fx:id="leader_bench_week" mnemonicParsing="false" text="Week" />
+                                        <MenuItem fx:id="leader_bench_month" mnemonicParsing="false" text="Month" />
+                                        <MenuItem fx:id="leader_bench_year" mnemonicParsing="false" text="Year" />
                                     </items>
                                 </Menu>
-                                <Menu mnemonicParsing="false" text="Dead Lift">
+                                <Menu fx:id="leader_dead" mnemonicParsing="false" onAction="#leaderDeadHandler" text="Dead Lift">
                                     <items>
-                                        <MenuItem mnemonicParsing="false" text="Week" />
-                                        <MenuItem mnemonicParsing="false" text="Month" />
-                                        <MenuItem mnemonicParsing="false" text="Year" />
+                                        <MenuItem fx:id="leader_dead_week" mnemonicParsing="false" text="Week" />
+                                        <MenuItem fx:id="leader_dead_month" mnemonicParsing="false" text="Month" />
+                                        <MenuItem fx:id="leader_dead_year" mnemonicParsing="false" text="Year" />
                                     </items>
                                 </Menu>
-                                <Menu mnemonicParsing="false" text="Calories Lost">
+                                <Menu fx:id="leader_calories" mnemonicParsing="false" onAction="#leaderCalHandler" text="Calories Lost">
                                     <items>
-                                        <MenuItem mnemonicParsing="false" text="Week" />
-                                        <MenuItem mnemonicParsing="false" text="Month" />
-                                        <MenuItem mnemonicParsing="false" text="Year" />
+                                        <MenuItem fx:id="leader_cal_week" mnemonicParsing="false" text="Week" />
+                                        <MenuItem fx:id="leader_cal_month" mnemonicParsing="false" text="Month" />
+                                        <MenuItem fx:id="leader_cal_year" mnemonicParsing="false" text="Year" />
                                     </items>
                                 </Menu>
                             </menus>
                         </MenuBar>
-                  <TableView fx:id="leaderboardTable" layoutX="114.0" layoutY="71.0" prefHeight="227.0" prefWidth="375.0" style="-fx-background-color: #FEE96E;">
-                    <columns>
-                      <TableColumn fx:id="username_col" prefWidth="124.00006103515625" text="Username" />
-                      <TableColumn fx:id="exercise_col" prefWidth="131.3333740234375" text="Exercise" />
-                        <TableColumn fx:id="weight_col" prefWidth="112.6666259765625" text="Weight" />
-                    </columns>
-                  </TableView>
+                        <TableView fx:id="leaderboardTable" layoutX="114.0" layoutY="71.0" prefHeight="227.0" prefWidth="375.0">
+                            <columns>
+                                <TableColumn fx:id="username_col" prefWidth="124.00006103515625" text="Username" />
+                                <TableColumn fx:id="exercise_col" prefWidth="131.3333740234375" text="Date" />
+                                <TableColumn fx:id="weight_col" prefWidth="117.33333333333331" text="Weight" />
+                            </columns>
+                        </TableView>
                     </children>
                 </AnchorPane>
             </content>
