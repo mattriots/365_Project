@@ -1,3 +1,4 @@
-.backgroundColor{
-    -fx-background-color: linear-gradient(to left, #6EA8FE, #F8E266);
+.loginBackground{
+    -fx-background-color: linear-gradient(to bottom, #D0D0D0, #DBD8C3, #F4DD5A);
 }
+
