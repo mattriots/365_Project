@@ -1,11 +1,60 @@
 .loginBackground{
-    -fx-background-color: linear-gradient(to bottom, #D0D0D0, #DBD8C3, #F4DD5A);
+    /*-fx-background-color: linear-gradient(to bottom, #D0D0D0 0%, #D0D0D0 10%, #D4D1C3 10%, #D4D1C3 20%, #D8D3B6 20%,
+    #D8D3B6 30%, #DCD4A9 30%, #DCD4A9 40%, #E0D69C 40%, #E0D69C 50%, #E4D78E 50%, #E4D78E 60%, #E8D981 60%, #E8D981 70%,
+     #ECDA74 70%, #ECDA74 80%, #F0DC67 80%, #F0DC67 90%, #F4DD5A 90%);*/
+
+     /*-fx-background-color: linear-gradient(to bottom, #D0D0D0 0%, #D0D0D0 20%, #D9D3B3 20%, #D9D3B3 40%, #E2D795 40%,
+     #E2D795 60%, #EBDA78 60%, #EBDA78 80%, #F4DD5A 80%);*/
+
+     -fx-background-color: linear-gradient(to bottom, #D0D0D0 0%, #D0D0D0 20%, #D9D5B3 20%, #D9D5B3 40%, #E2DB95 40%,
+          #E2DB95 60%, #EBE078 60%, #EBE078 80%, #F4E55A 80%);
 }
 
 .profileBackground{
-    -fx-background-color: linear-gradient(to bottom right, #f0f0f0, #bdbdbd, #a3a3a3, #7d7d7d);
+    -fx-background-color: linear-gradient(to bottom, #f0f0f0 0%, #f0f0f0 25%, #bdbdbd 25%, #bdbdbd 50%,
+     #a3a3a3 50%, #a3a3a3 75%, #7d7d7d 75%);
 }
 
 .leaderboardBackground{
-    -fx-background-color: linear-gradient(to bottom, #d6d4d4, #DBD8C3, #F4DD5A);
+    /*-fx-background-color: linear-gradient(to bottom, #D0D0D0, #DBD8C3, #F4DD5A);*/
+    /*-fx-background-color: linear-gradient(to bottom, #D0D0D0 0%, #D0D0D0 20%, #D9D3B3 20%, #D9D3B3 40%, #E2D795 40%,
+         #E2D795 60%, #EBDA78 60%, #EBDA78 80%, #F4DD5A 80%);*/
+
+    -fx-background-color: linear-gradient(to bottom, #D0D0D0 0%, #D0D0D0 20%, #D9D5B3 20%, #D9D5B3 40%, #E2DB95 40%,
+         #E2DB95 60%, #EBE078 60%, #EBE078 80%, #F4E55A 80%);
 }
+
+
+.eightbit-btn{
+
+    -fx-background-radius: 0;
+    -fx-background-color: #92CD41;
+    -fx-padding: 8px;
+    -fx-display: inline-block;
+    /*-fx-position: relative;*/
+    -fx-text-alignment: center;
+    -fx-font-size: 10px;
+    -fx-font-family: 'Press Start 2P', cursive;
+    -fx-text-decoration: none;
+    -fx-color: white;
+    /*-fx-effect: dropshadow(gaussian, rgba(0,0,0,1), 0, 0, 3, 3);*/
+
+     /*-fx-border-color: black;
+     -fx-border-width: 3;
+     -fx-border-insets: 0 0 -1 0;*/
+
+
+    /*box-shadow: inset -4px -4px 0px 0px #4AA52E;*/
+}
+
+    .eightbit-btn:hover, .eightbit-btn:focus {
+        -fx-background-color: #76c442;
+        /*-fx-effect: dropshadow(gaussian, rgba(74,165,46,1), 0, 0, 3, 3);*/
+        /*box-shadow: inset -6px -6px 0px 0px #4AA52E;*/
+    }
+
+    .eightbit-btn:active {
+        -fx-effect: dropshadow(gaussian, rgba(74,165,46,1), 0, 0, 4, 4);
+        /*-box-shadow: inset 4px 4px 0px 0px #4AA52E;*/
+    }
+

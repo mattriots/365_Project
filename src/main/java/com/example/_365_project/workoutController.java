@@ -316,14 +316,14 @@ public class workoutController implements Initializable{
             ageStatLabel.setText(newRs.getString("age"));
             weightStatLabel.setText(newRs.getString("weight"));
 
-            String selectSQL = "SELECT username, exercise, weight FROM ExerciseLog ORDER BY exercise ASC, weight DESC";
+            String selectSQL = "SELECT username, date, weight FROM ExerciseLog ORDER BY weight DESC, date DESC";
             PreparedStatement preparedStatement = connect.prepareStatement(selectSQL);
             ResultSet rs = preparedStatement.executeQuery();
             leaderboardList.removeAll(leaderboardList);
 
             while (rs.next()) {
                 leaderboardList.add(new LeaderboardTable(rs.getString("username"),
-                        rs.getString("exercise"), rs.getString("weight")));
+                        rs.getString("date"), rs.getString("weight")));
             }
         }
         catch (SQLException e){
