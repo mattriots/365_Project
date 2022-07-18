@@ -64,7 +64,7 @@ public class Login {
         }
 
         else if (!MySQL.login(connect, username.getText(), password.getText())){
-            wrongLogIn.setText("Wrong username or password! Please try Again");
+            wrongLogIn.setText("Wrong username or password!");
         }
 
         else if(username.getText().isEmpty() || password.getText().isEmpty()){
