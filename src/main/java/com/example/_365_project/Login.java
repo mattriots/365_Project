@@ -1,4 +1,5 @@
 package com.example._365_project;
+import javafx.animation.PauseTransition;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -6,6 +7,8 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.event.ActionEvent;
+import javafx.util.Duration;
+
 import java.util.prefs.*;
 
 import java.security.MessageDigest;
@@ -48,6 +51,8 @@ public class Login {
     @FXML
     private PasswordField password;
 
+    private static PauseTransition pause;
+
     @FXML
     private void checkLogin() throws IOException, SQLException, NoSuchAlgorithmException, InvalidKeySpecException {
         Connection connect = MySQL.setConnect();
@@ -63,16 +68,19 @@ public class Login {
             m.changeScene("workOut.fxml");
         }
 
-        else if (!MySQL.login(connect, username.getText(), password.getText())){
-            wrongLogIn.setText("Wrong username or password!");
-        }
-
         else if(username.getText().isEmpty() || password.getText().isEmpty()){
-            wrongLogIn.setText("Please enter your Username or Password.");
+            wrongLogIn.setText("Please enter your Username and Password.");
+            clearLabelText(wrongLogIn, 3.5);
         }
 
         else if (!MySQL.checkUser(connect, username.getText())){
             wrongLogIn.setText("User does not exist. Please Sign Up");
+            clearLabelText(wrongLogIn, 3.5);
+        }
+
+        else if (!MySQL.login(connect, username.getText(), password.getText())){
+            wrongLogIn.setText("Wrong username or password!");
+            clearLabelText(wrongLogIn, 3.5);
         }
     }
 
@@ -85,13 +93,16 @@ public class Login {
         if(!Objects.equals(signUpPass.getText(), signUpConfirm.getText())) wrongSignUp.setText("Both Passwords must be the same");
         else if(signUpPass.getText().isEmpty() || signUpConfirm.getText().isEmpty() || signUpUser.getText().isEmpty()){
             wrongSignUp.setText("Please fill in all fields");
+            clearLabelText(wrongSignUp, 3.5);
         }
         else if(MySQL.checkUser(connect, signUpUser.getText())){
             wrongSignUp.setText("Username already in use");
+            clearLabelText(wrongSignUp, 3.5);
         }
         else {
             MySQL.signUp(connect, signUpUser.getText(), hashPass);
             wrongSignUp.setText("You have successfully Signed up. Please login");
+            clearLabelText(wrongSignUp, 3.5);
         }
     }
 
@@ -150,6 +161,17 @@ public class Login {
         signupBtn.setLayoutY(signupBtn.getLayoutY() - 3);
     }
 
+    private void clearLabelText(Label label, double seconds){
+
+        if(pause != null) {
+            if (pause.getCurrentRate() != 0.0d) {
+                pause.stop();
+            }
+        }
+        pause = new PauseTransition(Duration.seconds(seconds));
+        pause.setOnFinished(e -> label.setText(""));
+        pause.play();
+    };
 
 
 }
