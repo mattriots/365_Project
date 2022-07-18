@@ -11,69 +11,84 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example._365_project.Login">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="453.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example._365_project.Login">
     <center>
-        <AnchorPane prefHeight="200.0" prefWidth="200.0" styleClass="loginBackground" stylesheets="@style.css" BorderPane.alignment="CENTER">
+        <AnchorPane prefHeight="443.0" prefWidth="600.0" styleClass="loginBackground" stylesheets="@style.css" BorderPane.alignment="CENTER">
             <children>
-                <Label alignment="CENTER" layoutX="225.0" layoutY="21.0" text="Login">
+                <Label alignment="CENTER" layoutX="224.0" layoutY="83.0" text="Login">
                     <font>
                         <Font name="Press Start 2P Regular" size="18.0" />
                     </font></Label>
-                <Label alignment="CENTER_RIGHT" layoutX="90.0" layoutY="59.0" text="Username">
+                <Label alignment="CENTER_RIGHT" layoutX="89.0" layoutY="121.0" text="Username">
                     <font>
                         <Font name="Press Start 2P Regular" size="9.0" />
                     </font></Label>
-                <Label alignment="CENTER" layoutX="209.0" layoutY="189.0" text="Sign Up">
+                <Label alignment="CENTER" layoutX="208.0" layoutY="251.0" text="Sign Up">
                     <font>
                         <Font name="Press Start 2P Regular" size="18.0" />
                     </font></Label>
-                <Label alignment="CENTER_RIGHT" layoutX="90.0" layoutY="99.0" text="Password">
+                <Label alignment="CENTER_RIGHT" layoutX="89.0" layoutY="161.0" text="Password">
                     <font>
                         <Font name="Press Start 2P Regular" size="9.0" />
                     </font></Label>
-                <Label alignment="CENTER_RIGHT" layoutX="89.0" layoutY="225.0" text="Username">
+                <Label alignment="CENTER_RIGHT" layoutX="88.0" layoutY="287.0" text="Username">
                     <font>
                         <Font name="Press Start 2P Regular" size="9.0" />
                     </font></Label>
-                <Label alignment="CENTER_RIGHT" layoutX="89.0" layoutY="267.0" text="Password">
+                <Label alignment="CENTER_RIGHT" layoutX="88.0" layoutY="329.0" text="Password">
                     <font>
                         <Font name="Press Start 2P Regular" size="9.0" />
                     </font></Label>
-                <Label alignment="CENTER_RIGHT" layoutX="17.0" layoutY="307.0" text="Confirm Password">
+                <Label alignment="CENTER_RIGHT" layoutX="16.0" layoutY="369.0" text="Confirm Password">
                     <font>
                         <Font name="Press Start 2P Regular" size="9.0" />
                     </font></Label>
-                <TextField fx:id="username" layoutX="190.0" layoutY="51.0" prefHeight="25.0" prefWidth="161.0" promptText="Username">
+                <TextField fx:id="username" layoutX="189.0" layoutY="113.0" prefHeight="25.0" prefWidth="161.0" promptText="Username">
                <font>
                   <Font name="Press Start 2P Regular" size="8.0" />
                </font></TextField>
-                <PasswordField fx:id="password" layoutX="190.0" layoutY="91.0" prefHeight="25.0" prefWidth="161.0" promptText="Password">
+                <PasswordField fx:id="password" layoutX="189.0" layoutY="153.0" prefHeight="25.0" prefWidth="161.0" promptText="Password">
                <font>
                   <Font name="Press Start 2P Regular" size="8.0" />
                </font></PasswordField>
-            <Rectangle height="27.0" layoutX="232.0" layoutY="128.0" smooth="false" stroke="TRANSPARENT" strokeType="INSIDE" width="75.0" />
-                <Button fx:id="loginBtn" alignment="CENTER" layoutX="229.0" layoutY="125.0" mnemonicParsing="false" onAction="#submitLoginHandler" onMousePressed="#logInMousePressedHandler" onMouseReleased="#logInMouseReleasedHandler" styleClass="eightbit-btn" stylesheets="@style.css" text="LOG IN" textAlignment="CENTER" />
-                <TextField fx:id="signUpUser" layoutX="190.0" layoutY="217.0" prefHeight="25.0" prefWidth="161.0" promptText="Username">
+            <Rectangle height="27.0" layoutX="231.0" layoutY="190.0" smooth="false" stroke="TRANSPARENT" strokeType="INSIDE" width="75.0" />
+                <Button fx:id="loginBtn" alignment="CENTER" layoutX="228.0" layoutY="187.0" mnemonicParsing="false" onAction="#submitLoginHandler" onMousePressed="#logInMousePressedHandler" onMouseReleased="#logInMouseReleasedHandler" styleClass="eightbit-btn" stylesheets="@style.css" text="LOG IN" textAlignment="CENTER" />
+                <TextField fx:id="signUpUser" layoutX="189.0" layoutY="279.0" prefHeight="25.0" prefWidth="161.0" promptText="Username">
                <font>
                   <Font name="Press Start 2P Regular" size="8.0" />
                </font></TextField>
-                <PasswordField fx:id="signUpPass" layoutX="190.0" layoutY="259.0" prefHeight="25.0" prefWidth="161.0" promptText="Password">
+                <PasswordField fx:id="signUpPass" layoutX="189.0" layoutY="321.0" prefHeight="25.0" prefWidth="161.0" promptText="Password">
                <font>
                   <Font name="Press Start 2P Regular" size="8.0" />
                </font></PasswordField>
-                <PasswordField fx:id="signUpConfirm" layoutX="190.0" layoutY="299.0" prefHeight="25.0" prefWidth="161.0" promptText="Password">
+                <PasswordField fx:id="signUpConfirm" layoutX="189.0" layoutY="361.0" prefHeight="25.0" prefWidth="161.0" promptText="Password">
                <font>
                   <Font name="Press Start 2P Regular" size="8.0" />
                </font></PasswordField>
-                <Label fx:id="wrongLogIn" layoutX="350.0" layoutY="56.0" textFill="RED" />
-            <Rectangle height="27.0" layoutX="226.0" layoutY="336.0" smooth="false" stroke="TRANSPARENT" strokeType="INSIDE" width="86.0" />
-                <Button fx:id="signupBtn" alignment="CENTER" layoutX="224.0" layoutY="333.0" mnemonicParsing="false" onAction="#submitSignUpHandler" onMousePressed="#signUpMousePressedHandler" onMouseReleased="#signUpMouseReleasedHandler" styleClass="eightbit-btn " stylesheets="@style.css" text="SIGN UP" textAlignment="CENTER" />
-                <ImageView fitHeight="255.0" fitWidth="199.0" layoutX="375.0" layoutY="78.0" pickOnBounds="true" preserveRatio="true">
+                <Label fx:id="wrongLogIn" layoutX="350.0" layoutY="95.0" prefHeight="17.0" prefWidth="247.0" textFill="RED" />
+            <Rectangle height="27.0" layoutX="225.0" layoutY="398.0" smooth="false" stroke="TRANSPARENT" strokeType="INSIDE" width="86.0" />
+                <Button fx:id="signupBtn" alignment="CENTER" layoutX="223.0" layoutY="395.0" mnemonicParsing="false" onAction="#submitSignUpHandler" onMousePressed="#signUpMousePressedHandler" onMouseReleased="#signUpMouseReleasedHandler" styleClass="eightbit-btn " stylesheets="@style.css" text="SIGN UP" textAlignment="CENTER" />
+                <ImageView fitHeight="255.0" fitWidth="199.0" layoutX="377.0" layoutY="122.0" pickOnBounds="true" preserveRatio="true">
                     <image>
                         <Image url="@buff_doge.png" />
                     </image>
                 </ImageView>
-                <Label fx:id="wrongSignUp" layoutX="230.0" layoutY="360.0" prefHeight="17.0" prefWidth="0.0" textFill="RED" />
+                <Label fx:id="wrongSignUp" layoutX="349.0" layoutY="390.0" prefHeight="17.0" prefWidth="243.0" textFill="RED" />
+            <Label alignment="CENTER" layoutX="2.0" layoutY="35.0" prefHeight="41.0" prefWidth="593.0" text="WORKOUT TRACKER">
+               <font>
+                  <Font name="Press Start 2P Regular" size="37.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER" layoutX="4.0" layoutY="32.0" prefHeight="41.0" prefWidth="593.0" text="WORKOUT TRACKER" textFill="#dd6700">
+               <font>
+                  <Font name="Press Start 2P Regular" size="37.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER" layoutX="7.0" layoutY="30.0" prefHeight="41.0" prefWidth="593.0" text="WORKOUT TRACKER" textFill="#ffe100">
+               <font>
+                  <Font name="Press Start 2P Regular" size="37.0" />
+               </font>
+            </Label>
             </children>
         </AnchorPane>
     </center>
