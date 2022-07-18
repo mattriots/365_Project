@@ -1,17 +1,13 @@
 package com.example._365_project;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.stage.Stage;
+import javafx.scene.input.MouseEvent;
 import javafx.event.ActionEvent;
 import java.util.prefs.*;
 
-import javax.crypto.SecretKeyFactory;
-import javax.crypto.spec.PBEKeySpec;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
@@ -44,7 +40,7 @@ public class Login {
     @FXML
     private Button signupBtn;
     @FXML
-    private Button logBtn;
+    private Button loginBtn;
     @FXML
     private Label wrongLogIn;
     @FXML
@@ -132,6 +128,26 @@ public class Login {
 
     public void submitSignUpHandler(ActionEvent actionEvent) throws SQLException, IOException {
         checkSignUp();
+    }
+
+    public void logInMousePressedHandler(MouseEvent actionEvent) {
+        loginBtn.setLayoutX(loginBtn.getLayoutX() + 3);
+        loginBtn.setLayoutY(loginBtn.getLayoutY() + 3);
+    }
+
+    public void logInMouseReleasedHandler(MouseEvent actionEvent) {
+        loginBtn.setLayoutX(loginBtn.getLayoutX() - 3);
+        loginBtn.setLayoutY(loginBtn.getLayoutY() - 3);
+    }
+
+    public void signUpMousePressedHandler(MouseEvent actionEvent) {
+        signupBtn.setLayoutX(signupBtn.getLayoutX() + 2);
+        signupBtn.setLayoutY(signupBtn.getLayoutY() + 3);
+    }
+
+    public void signUpMouseReleasedHandler(MouseEvent actionEvent) {
+        signupBtn.setLayoutX(signupBtn.getLayoutX() - 2);
+        signupBtn.setLayoutY(signupBtn.getLayoutY() - 3);
     }
 
 
