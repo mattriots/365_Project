@@ -18,6 +18,7 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
@@ -39,9 +40,9 @@
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font></Label>
-                        <Label alignment="CENTER" layoutX="35.0" layoutY="150.0" prefHeight="25.0" prefWidth="135.0" text="User Information">
+                        <Label alignment="CENTER" layoutX="27.0" layoutY="149.0" prefHeight="25.0" prefWidth="152.0" text="User Information">
                             <font>
-                                <Font name="System Bold" size="16.0" />
+                                <Font name="Press Start 2P Regular" size="9.0" />
                             </font></Label>
                         <Button fx:id="updateBtn" layoutX="79.0" layoutY="253.0" mnemonicParsing="false" onAction="#updateBtnHandler" text="Update" />
                         <ImageView fitHeight="98.0" fitWidth="163.0" layoutX="52.0" layoutY="43.0" pickOnBounds="true" preserveRatio="true">
@@ -50,50 +51,37 @@
                             </image>
                         </ImageView>
                         <ChoiceBox fx:id="chartChoicebox" layoutX="342.0" layoutY="30.0" onMouseClicked="#workoutChoiceHandler" prefHeight="25.0" prefWidth="119.0" />
-                        <Text layoutX="366.0" layoutY="22.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Exercise" wrappingWidth="71.47003173828125">
+                        <Text layoutX="350.0" layoutY="23.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Exercise" wrappingWidth="103.47003173828125">
                             <font>
-                                <Font name="System Bold" size="18.0" />
+                                <Font name="Press Start 2P Regular" size="12.0" />
                             </font>
                         </Text>
                         <Button fx:id="chartButton" layoutX="485.0" layoutY="30.0" mnemonicParsing="false" onAction="#submitChartHandler" text="View" />
-                        <Text layoutX="49.0" layoutY="196.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Age:" wrappingWidth="32.016937255859375" />
-                        <Text layoutX="31.0" layoutY="230.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Weight: " wrappingWidth="50.203125" />
-                        <TextField fx:id="ageUpdateBox" alignment="CENTER" layoutX="121.0" layoutY="180.0" prefHeight="26.0" prefWidth="39.0" />
-                        <TextField fx:id="weightUpdateBox" alignment="CENTER" layoutX="121.0" layoutY="212.0" prefHeight="26.0" prefWidth="39.0" />
-                        <Label fx:id="ageStatLabel" layoutX="79.0" layoutY="184.0" text="Label" />
-                        <Label fx:id="weightStatLabel" layoutX="79.0" layoutY="217.0" text="Label" />
+                        <Text layoutX="49.0" layoutY="197.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Age:" wrappingWidth="32.016937255859375">
+                     <font>
+                        <Font name="Press Start 2P Regular" size="8.0" />
+                     </font></Text>
+                        <Text layoutX="25.0" layoutY="230.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Weight: " wrappingWidth="56.203125">
+                     <font>
+                        <Font name="Press Start 2P Regular" size="8.0" />
+                     </font></Text>
+                        <TextField fx:id="ageUpdateBox" alignment="CENTER" layoutX="121.0" layoutY="180.0" prefHeight="26.0" prefWidth="39.0">
+                     <font>
+                        <Font name="Press Start 2P Regular" size="8.0" />
+                     </font></TextField>
+                        <TextField fx:id="weightUpdateBox" alignment="CENTER" layoutX="121.0" layoutY="212.0" prefHeight="26.0" prefWidth="39.0">
+                     <font>
+                        <Font name="Press Start 2P Regular" size="8.0" />
+                     </font></TextField>
+                        <Label fx:id="ageStatLabel" alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="78.0" layoutY="189.0" prefHeight="9.0" prefWidth="30.0" text="Label" textAlignment="RIGHT">
+                     <font>
+                        <Font name="Press Start 2P Regular" size="8.0" />
+                     </font></Label>
+                        <Label fx:id="weightStatLabel" alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="78.0" layoutY="222.0" prefHeight="9.0" prefWidth="30.0" text="Label" textAlignment="RIGHT">
+                     <font>
+                        <Font name="Press Start 2P Regular" size="8.0" />
+                     </font></Label>
                     </children></AnchorPane>
-            </content>
-        </Tab>
-        <Tab text="Add Workout">
-            <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" styleClass="loginBackground" stylesheets="@style.css">
-                    <children>
-                        <Button fx:id="addWorkout" layoutX="251.0" layoutY="308.0" mnemonicParsing="false" onAction="#submitWorkoutHandler" text="Save Exercise" />
-                        <DatePicker fx:id="datepicker" layoutX="60.0" layoutY="69.0" />
-                        <TextField fx:id="setsBox" alignment="CENTER" layoutX="222.0" layoutY="139.0" />
-                        <TextField fx:id="repsBox" alignment="CENTER" layoutX="221.0" layoutY="203.0" />
-                        <TextField fx:id="weightBox" alignment="CENTER" layoutX="222.0" layoutY="268.0" />
-                        <Label layoutX="76.0" layoutY="35.0" text="Date of Workout">
-                            <font>
-                                <Font name="System Bold" size="16.0" />
-                            </font></Label>
-                        <Label alignment="CENTER" layoutX="409.0" layoutY="35.0" prefHeight="25.0" prefWidth="74.0" text="Exercise">
-                            <font>
-                                <Font name="System Bold" size="16.0" />
-                            </font></Label>
-                        <Label layoutX="286.0" layoutY="117.0" text="Sets" />
-                        <Label alignment="CENTER" layoutX="280.0" layoutY="176.0" prefHeight="22.0" prefWidth="36.0" text="Reps" />
-                        <Label alignment="CENTER" layoutX="278.0" layoutY="246.0" text="Weight" />
-                        <ChoiceBox fx:id="workoutChoicebox" layoutX="371.0" layoutY="69.0" onMouseClicked="#workoutChoiceHandler" prefWidth="150.0" />
-                        <Label fx:id="exerciseLabel" layoutX="225.0" layoutY="340.0" />
-                  <ImageView fitHeight="201.0" fitWidth="190.0" layoutX="410.0" layoutY="170.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@exercise_gif.gif" />
-                     </image>
-                  </ImageView>
-                    </children>
-                </AnchorPane>
             </content>
         </Tab>
         <Tab text="View/Delete Workout">
@@ -118,9 +106,9 @@
         </Tab>
         <Tab text="Leaderboard">
             <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" styleClass="leaderboardBackground" stylesheets="@style.css">
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="600.0" styleClass="leaderboardBackground" stylesheets="@style.css">
                     <children>
-                        <MenuBar layoutX="131.0" layoutY="74.0">
+                        <MenuBar layoutX="129.0" layoutY="92.0">
                             <menus>
                                 <Menu fx:id="leader_overall" mnemonicParsing="false" onAction="#leaderOverallHandler" text="Overall">
                                     <items>
@@ -159,13 +147,62 @@
                                 </Menu>
                             </menus>
                         </MenuBar>
-                        <TableView fx:id="leaderboardTable" layoutX="113.0" layoutY="111.0" prefHeight="227.0" prefWidth="375.0">
+                        <TableView fx:id="leaderboardTable" layoutX="113.0" layoutY="129.0" prefHeight="227.0" prefWidth="375.0">
                             <columns>
                                 <TableColumn fx:id="username_col" prefWidth="123.0" text="Username" />
                                 <TableColumn fx:id="exercise_col" prefWidth="125.0" text="Date" />
                                 <TableColumn fx:id="weight_col" prefWidth="105.0" text="Weight" />
                             </columns>
                         </TableView>
+                  <ImageView fitHeight="129.0" fitWidth="293.0" layoutX="154.0" layoutY="-15.0">
+                     <image>
+                        <Image url="@podium-transparent-2x.png" />
+                     </image>
+                  </ImageView>
+                    </children>
+                </AnchorPane>
+            </content>
+        </Tab>
+        <Tab text="Add Workout">
+            <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" styleClass="loginBackground" stylesheets="@style.css">
+                    <children>
+                  <Rectangle height="27.0" layoutX="232.0" layoutY="316.0" smooth="false" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="146.0" />
+                        <Button fx:id="addWorkout" layoutX="229.0" layoutY="313.0" mnemonicParsing="false" onAction="#submitWorkoutHandler" onMousePressed="#addWorkoutMousePressedHandler" onMouseReleased="#addWorkoutMouseReleasedHandler" styleClass="eightbit-btn" stylesheets="@style.css" text="Save Exercise" />
+                        <DatePicker fx:id="datepicker" layoutX="60.0" layoutY="69.0" />
+                        <TextField fx:id="setsBox" alignment="CENTER" layoutX="223.0" layoutY="145.0" />
+                        <TextField fx:id="repsBox" alignment="CENTER" layoutX="224.0" layoutY="204.0" />
+                        <TextField fx:id="weightBox" alignment="CENTER" layoutX="224.0" layoutY="268.0" />
+                        <Label layoutX="79.0" layoutY="46.0" text="Date of Workout">
+                            <font>
+                                <Font name="Press Start 2P Regular" size="10.0" />
+                            </font></Label>
+                        <Label alignment="CENTER" layoutX="396.0" layoutY="39.0" prefHeight="25.0" prefWidth="100.0" text="Exercise">
+                            <font>
+                                <Font name="Press Start 2P Regular" size="10.0" />
+                            </font></Label>
+                        <Label layoutX="287.0" layoutY="128.0" text="Sets">
+                     <font>
+                        <Font name="Press Start 2P Regular" size="9.0" />
+                     </font></Label>
+                        <Label alignment="CENTER" layoutX="287.0" layoutY="181.0" prefHeight="22.0" prefWidth="36.0" text="Reps">
+                     <font>
+                        <Font name="Press Start 2P Regular" size="9.0" />
+                     </font></Label>
+                        <Label alignment="CENTER" layoutX="278.0" layoutY="250.0" text="Weight">
+                     <font>
+                        <Font name="Press Start 2P Regular" size="9.0" />
+                     </font></Label>
+                        <ChoiceBox fx:id="workoutChoicebox" layoutX="371.0" layoutY="69.0" onMouseClicked="#workoutChoiceHandler" prefWidth="150.0" />
+                        <Label fx:id="exerciseLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="178.0" layoutY="346.0" prefHeight="17.0" prefWidth="249.0" textAlignment="CENTER">
+                     <font>
+                        <Font name="Press Start 2P Regular" size="7.0" />
+                     </font></Label>
+                  <ImageView fitHeight="201.0" fitWidth="190.0" layoutX="410.0" layoutY="170.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@exercise_gif.gif" />
+                     </image>
+                  </ImageView>
                     </children>
                 </AnchorPane>
             </content>

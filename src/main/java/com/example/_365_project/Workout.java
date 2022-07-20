@@ -29,6 +29,7 @@ public class Workout extends Application {
     public void changeScene(String fxml) throws IOException {
         Parent pane = FXMLLoader.load(Objects.requireNonNull(getClass().getResource(fxml)));
         stg.getScene().setRoot(pane);
+        stg.sizeToScene();
     }
 
 
