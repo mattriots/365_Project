@@ -55,4 +55,50 @@
     -fx-background-color: #e87c00;
 }
 
+#updateBtn.eightbit-btn{
+    -fx-background-color: #7986ba;
+}
+
+#updateBtn.eightbit-btn:hover, #updateBtn.eightbit-btn:focus {
+    -fx-background-color: #6873a1;
+}
+
+#chartButton.eightbit-btn{
+    -fx-background-color: #7986ba;
+}
+
+#chartButton.eightbit-btn:hover, #updateBtn.eightbit-btn:focus {
+    -fx-background-color: #6873a1;
+}
+
+
+#deleteWorkoutButton.eightbit-btn{
+    -fx-background-color: #f5d131;
+}
+
+#deleteWorkoutButton.eightbit-btn:hover, #deleteWorkoutButton.eightbit-btn:focus{
+    -fx-background-color: #d6b72b;
+}
+
+#tableBtn.eightbit-btn{
+    -fx-background-color: #f5d131;
+}
+
+#tableBtn.eightbit-btn:hover, #deleteWorkoutButton.eightbit-btn:focus{
+    -fx-background-color: #d6b72b;
+}
+
+#tableBtn.eightbit-btn{
+    -fx-background-color: #f5d131;
+}
+
+#tableBtn.eightbit-btn:hover, #deleteWorkoutButton.eightbit-btn:focus{
+    -fx-background-color: #d6b72b;
+}
+
+.LineChart{
+    -fx-font-size: 10px;
+    -fx-font-family: 'Press Start 2P', cursive;
+}
+
 
