@@ -161,7 +161,7 @@ public class Login {
         signupBtn.setLayoutY(signupBtn.getLayoutY() - 3);
     }
 
-    private void clearLabelText(Label label, double seconds){
+    public static void clearLabelText(Label label, double seconds){
 
         if(pause != null) {
             if (pause.getCurrentRate() != 0.0d) {

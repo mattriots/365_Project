@@ -212,16 +212,69 @@ public class workoutController implements Initializable{
         }
     }
 
+    public void updateBtnMousePressedHandler(MouseEvent actionEvent) {
+        updateBtn.setLayoutX(updateBtn.getLayoutX() + 3);
+        updateBtn.setLayoutY(updateBtn.getLayoutY() + 3);
+    }
+
+    public void updateBtnMouseReleasedHandler(MouseEvent actionEvent) {
+        updateBtn.setLayoutX(updateBtn.getLayoutX() - 3);
+        updateBtn.setLayoutY(updateBtn.getLayoutY() - 3);
+    }
+
+    // handler for adding a workout to the database
     @FXML
     void submitWorkoutHandler(ActionEvent event){
 
-        java.sql.Date getDate = java.sql.Date.valueOf(datepicker.getValue());
-        if(MySQL.inputWorkout(connect, Preferences.userRoot().get("username", "workout"), getDate,
+        java.sql.Date getDate;
+        try {
+            getDate = java.sql.Date.valueOf(datepicker.getValue());
+        }
+        catch(NullPointerException e){
+            exerciseLabel.setText("Please select a date");
+            Login.clearLabelText(exerciseLabel, 3.5);
+            return;
+        }
+
+        if(workoutChoicebox.getSelectionModel().getSelectedItem() == null){
+            exerciseLabel.setText("Please select an exercise");
+            Login.clearLabelText(exerciseLabel, 3.5);
+            return;
+        }
+
+        if(setsBox.getText().equals("") || !isInteger(setsBox.getText())
+                || repsBox.getText().equals("") || !isInteger(repsBox.getText())
+                || weightBox.getText().equals("") || workoutChoicebox.getSelectionModel().getSelectedItem() == null){
+            exerciseLabel.setText("Please try again with valid data");
+            Login.clearLabelText(exerciseLabel, 3.5);
+        }
+
+        else if(MySQL.inputWorkout(connect, Preferences.userRoot().get("username", "workout"), getDate,
                 workoutChoicebox.getSelectionModel().getSelectedItem(), setsBox.getText(),
                 repsBox.getText(), weightBox.getText())){
-            exerciseLabel.setText("Your exercise has been logged");
+            exerciseLabel.setText("Your exercise has been logged!");
+            Login.clearLabelText(exerciseLabel, 3.5);
+            datepicker.setValue(null);
+            workoutChoicebox.setValue(null);
+            setsBox.setText("");
+            repsBox.setText("");
+            weightBox.setText("");
         }
-        else exerciseLabel.setText("Please try again with valid data");
+        else {
+            exerciseLabel.setText("Error. Please try again with valid data");
+            Login.clearLabelText(exerciseLabel, 3.5);
+        }
+    }
+
+
+    public void addWorkoutMousePressedHandler(MouseEvent actionEvent) {
+        addWorkout.setLayoutX(addWorkout.getLayoutX() + 3);
+        addWorkout.setLayoutY(addWorkout.getLayoutY() + 3);
+    }
+
+    public void addWorkoutMouseReleasedHandler(MouseEvent actionEvent) {
+        addWorkout.setLayoutX(addWorkout.getLayoutX() - 3);
+        addWorkout.setLayoutY(addWorkout.getLayoutY() - 3);
     }
 
     @FXML
@@ -253,6 +306,16 @@ public class workoutController implements Initializable{
             }
         }
 
+    }
+
+    public void chartButtonMousePressedHandler(MouseEvent actionEvent) {
+        chartButton.setLayoutX(chartButton.getLayoutX() + 3);
+        chartButton.setLayoutY(chartButton.getLayoutY() + 3);
+    }
+
+    public void chartButtonMouseReleasedHandler(MouseEvent actionEvent) {
+        chartButton.setLayoutX(chartButton.getLayoutX() - 3);
+        chartButton.setLayoutY(chartButton.getLayoutY() - 3);
     }
 
     @FXML
@@ -298,6 +361,8 @@ public class workoutController implements Initializable{
         table_weight.setCellValueFactory(new PropertyValueFactory<>("weight"));
 
         exerciseTable.setItems(list);
+
+        table_Datepicker.setValue(null);
     }
 
     @Override
@@ -354,8 +419,22 @@ public class workoutController implements Initializable{
         return true;
     }
 
+    public void tableBtnMousePressedHandler(MouseEvent actionEvent) {
+        tableBtn.setLayoutX(tableBtn.getLayoutX() + 3);
+        tableBtn.setLayoutY(tableBtn.getLayoutY() + 3);
+    }
+
+    public void tableBtnMouseReleasedHandler(MouseEvent actionEvent) {
+        tableBtn.setLayoutX(tableBtn.getLayoutX() - 3);
+        tableBtn.setLayoutY(tableBtn.getLayoutY() - 3);
+    }
+
     @FXML
     void deleteButtonHandler(ActionEvent event) {
+
+        if(exerciseTable.getSelectionModel().getSelectedItem() == null){
+            return;
+        }
         try {
             String deleteExercise = "DELETE FROM ExerciseLog WHERE username = ? AND date = ? AND exercise = ?";
             PreparedStatement ps = connect.prepareStatement(deleteExercise);
@@ -376,6 +455,16 @@ public class workoutController implements Initializable{
             }
         }
 
+    }
+
+    public void deleteWorkoutButtonMousePressedHandler(MouseEvent actionEvent) {
+        deleteWorkoutButton.setLayoutX(deleteWorkoutButton.getLayoutX() + 3);
+        deleteWorkoutButton.setLayoutY(deleteWorkoutButton.getLayoutY() + 3);
+    }
+
+    public void deleteWorkoutButtonMouseReleasedHandler(MouseEvent actionEvent) {
+        deleteWorkoutButton.setLayoutX(deleteWorkoutButton.getLayoutX() - 3);
+        deleteWorkoutButton.setLayoutY(deleteWorkoutButton.getLayoutY() - 3);
     }
 
     public void leaderOverallHandler(ActionEvent actionEvent) {
