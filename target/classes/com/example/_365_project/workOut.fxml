@@ -28,7 +28,7 @@
             <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" styleClass="profileBackground" stylesheets="@style.css">
                     <children>
-                        <LineChart fx:id="lineChart" layoutX="210.0" layoutY="65.0" prefHeight="298.0" prefWidth="390.0" styleClass="LineChart" title="Progress Chart">
+                        <LineChart fx:id="lineChart" animated="false" layoutX="210.0" layoutY="66.0" prefHeight="297.0" prefWidth="390.0" styleClass="LineChart" title="Progress Chart">
                             <xAxis>
                                 <CategoryAxis side="BOTTOM" />
                             </xAxis>
