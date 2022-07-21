@@ -40,6 +40,22 @@ class MySQL {
                 e = e.getNextException();
             }
         }
+
+        try{
+            String userInfoString = "insert into UserInfo values(?, null, null)";
+            PreparedStatement updateUser = connect.prepareStatement(userInfoString);
+            updateUser.setString(1, username);
+            updateUser.executeUpdate();
+        }
+
+        catch(SQLException e){
+            while(e != null){
+                System.err.println(e.getMessage());
+                System.err.println(e.getSQLState());
+                System.err.println(e.getErrorCode());
+                e = e.getNextException();
+            }
+        }
     }
 
 
