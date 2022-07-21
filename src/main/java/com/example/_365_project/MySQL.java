@@ -40,6 +40,7 @@ class MySQL {
                 e = e.getNextException();
             }
         }
+
     }
 
 

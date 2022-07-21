@@ -158,9 +158,7 @@
                                 <TableColumn fx:id="weight_col" prefWidth="105.0" text="Weight" />
                             </columns>
                         </TableView>
-
                   <ImageView fitHeight="129.0" fitWidth="293.0" layoutX="156.0" layoutY="-16.0">
-
                      <image>
                         <Image url="@podium-transparent-2x.png" />
                      </image>
