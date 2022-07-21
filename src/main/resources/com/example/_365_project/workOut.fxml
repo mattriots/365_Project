@@ -28,7 +28,7 @@
             <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" styleClass="profileBackground" stylesheets="@style.css">
                     <children>
-                        <LineChart fx:id="lineChart" layoutX="210.0" layoutY="70.0" prefHeight="301.0" prefWidth="390.0" styleClass="LineChart" title="Progress Chart">
+                        <LineChart fx:id="lineChart" layoutX="210.0" layoutY="65.0" prefHeight="298.0" prefWidth="390.0" styleClass="LineChart" title="Progress Chart">
                             <xAxis>
                                 <CategoryAxis side="BOTTOM" />
                             </xAxis>
@@ -93,11 +93,11 @@
                         <DatePicker fx:id="table_Datepicker" layoutX="189.0" layoutY="25.0" />
                         <TableView fx:id="exerciseTable" layoutY="59.0" prefHeight="265.0" prefWidth="600.0">
                             <columns>
-                                <TableColumn fx:id="table_date" prefWidth="149.60003662109375" text="Date" />
-                                <TableColumn fx:id="table_exercise" prefWidth="156.79998779296875" text="Exercise" />
-                                <TableColumn fx:id="table_sets" prefWidth="98.39996337890625" text="Sets" />
-                                <TableColumn fx:id="table_reps" prefWidth="92.0" text="Reps" />
-                                <TableColumn fx:id="table_weight" prefWidth="104.80010986328125" text="Weight" />
+                                <TableColumn fx:id="table_date" prefWidth="127.0" text="Date" />
+                                <TableColumn fx:id="table_exercise" prefWidth="134.0" text="Exercise" />
+                                <TableColumn fx:id="table_sets" prefWidth="117.5" text="Sets" />
+                                <TableColumn fx:id="table_reps" prefWidth="121.0" text="Reps" />
+                                <TableColumn fx:id="table_weight" prefWidth="103.0" text="Weight" />
                             </columns>
                         </TableView>
                   <Rectangle height="27.0" layoutX="385.0" layoutY="26.0" smooth="false" stroke="BLACK" strokeType="INSIDE" width="77.0" />

@@ -96,5 +96,9 @@
     -fx-background-color: #d6b72b;
 }
 
+.LineChart{
+    -fx-font-size: 10px;
+    -fx-font-family: 'Press Start 2P', cursive;
+}
 
 

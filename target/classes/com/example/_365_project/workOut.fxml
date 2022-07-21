@@ -28,7 +28,7 @@
             <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" styleClass="profileBackground" stylesheets="@style.css">
                     <children>
-                        <LineChart fx:id="lineChart" layoutX="204.0" layoutY="61.0" prefHeight="310.0" prefWidth="396.0" title="Progress Chart">
+                        <LineChart fx:id="lineChart" layoutX="210.0" layoutY="65.0" prefHeight="298.0" prefWidth="390.0" styleClass="LineChart" title="Progress Chart">
                             <xAxis>
                                 <CategoryAxis side="BOTTOM" />
                             </xAxis>
@@ -52,7 +52,7 @@
                             </image>
                         </ImageView>
                         <ChoiceBox fx:id="chartChoicebox" layoutX="342.0" layoutY="30.0" onMouseClicked="#workoutChoiceHandler" prefHeight="25.0" prefWidth="119.0" />
-                        <Text layoutX="350.0" layoutY="23.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Exercise" wrappingWidth="103.47003173828125">
+                        <Text layoutX="353.0" layoutY="23.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Exercise" wrappingWidth="103.47003173828125">
                             <font>
                                 <Font name="Press Start 2P Regular" size="12.0" />
                             </font>
@@ -93,11 +93,11 @@
                         <DatePicker fx:id="table_Datepicker" layoutX="189.0" layoutY="25.0" />
                         <TableView fx:id="exerciseTable" layoutY="59.0" prefHeight="265.0" prefWidth="600.0">
                             <columns>
-                                <TableColumn fx:id="table_date" prefWidth="149.60003662109375" text="Date" />
-                                <TableColumn fx:id="table_exercise" prefWidth="156.79998779296875" text="Exercise" />
-                                <TableColumn fx:id="table_sets" prefWidth="98.39996337890625" text="Sets" />
-                                <TableColumn fx:id="table_reps" prefWidth="92.0" text="Reps" />
-                                <TableColumn fx:id="table_weight" prefWidth="104.80010986328125" text="Weight" />
+                                <TableColumn fx:id="table_date" prefWidth="127.0" text="Date" />
+                                <TableColumn fx:id="table_exercise" prefWidth="134.0" text="Exercise" />
+                                <TableColumn fx:id="table_sets" prefWidth="117.5" text="Sets" />
+                                <TableColumn fx:id="table_reps" prefWidth="121.0" text="Reps" />
+                                <TableColumn fx:id="table_weight" prefWidth="103.0" text="Weight" />
                             </columns>
                         </TableView>
                   <Rectangle height="27.0" layoutX="385.0" layoutY="26.0" smooth="false" stroke="BLACK" strokeType="INSIDE" width="77.0" />
@@ -158,7 +158,7 @@
                                 <TableColumn fx:id="weight_col" prefWidth="105.0" text="Weight" />
                             </columns>
                         </TableView>
-                  <ImageView fitHeight="129.0" fitWidth="293.0" layoutX="154.0" layoutY="-15.0">
+                  <ImageView fitHeight="129.0" fitWidth="293.0" layoutX="156.0" layoutY="-16.0">
                      <image>
                         <Image url="@podium-transparent-2x.png" />
                      </image>
