@@ -40,22 +40,6 @@ class MySQL {
                 e = e.getNextException();
             }
         }
-
-        try{
-            String userInfoString = "insert into UserInfo values(?, null, null)";
-            PreparedStatement updateUser = connect.prepareStatement(userInfoString);
-            updateUser.setString(1, username);
-            updateUser.executeUpdate();
-        }
-
-        catch(SQLException e){
-            while(e != null){
-                System.err.println(e.getMessage());
-                System.err.println(e.getSQLState());
-                System.err.println(e.getErrorCode());
-                e = e.getNextException();
-            }
-        }
     }
 
 
@@ -104,8 +88,8 @@ class MySQL {
     public static boolean inputWorkout(Connection connect, String username, Date date, String exercise,
                                        String sets, String reps, String weight){
         try{
-            String selectSQL = "insert into ExerciseLog (username, date, exercise, sets, reps, weight, calories) " +
-                    "values (?,?,?,?,?,?,?) ";
+            String selectSQL = "insert into ExerciseLog (username, date, exercise, sets, reps, weight) " +
+                    "values (?,?,?,?,?,?) ";
             PreparedStatement preparedStatement = connect.prepareStatement(selectSQL);
             preparedStatement.setString(1, username);
             preparedStatement.setString(2, String.valueOf(date));
@@ -113,8 +97,6 @@ class MySQL {
             preparedStatement.setString(4, sets);
             preparedStatement.setString(5, reps);
             preparedStatement.setString(6, weight);
-            int calories = (int) (((Integer.parseInt(sets) * 4.0) / 60.0) * 400);
-            preparedStatement.setString(7, String.valueOf(calories));
             preparedStatement.executeUpdate();
             return true;
         }
